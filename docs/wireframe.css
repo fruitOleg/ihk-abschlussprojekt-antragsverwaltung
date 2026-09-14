@@ -63,6 +63,10 @@ h2 {
   margin-bottom: 8px;
 }
 
+.feld.abstand {
+  margin-top: 10px;
+}
+
 .feld label {
   display: block;
   font-size: 12px;
