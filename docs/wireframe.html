@@ -3,504 +3,112 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Wireframe Antragsverfahren Unterrichtsorganisation</title>
-<style>
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 14px;
-  color: #000;
-  background: #fff;
-  margin: 0;
-  padding: 30px 20px 60px;
-}
-#inhalt {
-  max-width: 880px;
-  margin: 0 auto;
-}
-h1 {
-  font-size: 20px;
-  margin: 0 0 8px;
-}
-h2 {
-  font-size: 16px;
-  margin: 35px 0 10px;
-  border-bottom: 1px solid #000;
-  padding-bottom: 4px;
-}
-p {
-  margin: 0 0 10px;
-  line-height: 1.45;
-}
-.hinweis {
-  font-size: 13px;
-  color: #444;
-  margin: 8px 0 0;
-}
-
-/* Prozesskette */
-.kette {
-  border: 1px solid #999;
-  padding: 10px;
-  margin: 15px 0 10px;
-  background: #f5f5f5;
-}
-.kette table {
-  border: 0;
-}
-.kette td {
-  border: 1px solid #999;
-  background: #fff;
-  padding: 6px 9px;
-  font-size: 13px;
-  vertical-align: middle;
-}
-.kette td.pfeil {
-  border: 0;
-  background: none;
-  padding: 0 6px;
-  text-align: center;
-}
-.kette small {
-  color: #555;
-}
-
-/* Bildschirm */
-.screen {
-  border: 1px solid #999;
-  margin: 12px 0;
-  background: #fff;
-}
-.kopf {
-  background: #e5e5e5;
-  border-bottom: 1px solid #999;
-  padding: 5px 10px;
-  font-size: 12px;
-  color: #333;
-}
-.kopf .rechts {
-  float: right;
-}
-.inhalt {
-  padding: 12px;
-}
-
-/* Formularelemente */
-.feld {
-  margin-bottom: 10px;
-}
-.feld label {
-  display: block;
-  font-size: 12px;
-  margin-bottom: 3px;
-}
-.kasten {
-  border: 1px solid #999;
-  background: #fff;
-  padding: 6px 8px;
-  color: #555;
-  min-height: 16px;
-}
-.kasten.gross {
-  min-height: 40px;
-}
-.spalten {
-  display: table;
-  width: 100%;
-  border-spacing: 10px 0;
-  margin: 0 -10px;
-}
-.spalte {
-  display: table-cell;
-  width: 50%;
-  vertical-align: top;
-}
-.knopf {
-  display: inline-block;
-  border: 1px solid #666;
-  background: #ddd;
-  padding: 5px 12px;
-  font-size: 13px;
-  margin-right: 6px;
-}
-.knopf.haupt {
-  background: #999;
-  color: #fff;
-  border-color: #666;
-}
-.knopfzeile {
-  margin-top: 12px;
-}
-.auswahl {
-  border: 1px solid #999;
-}
-.auswahl div {
-  padding: 5px 8px;
-  border-bottom: 1px solid #ccc;
-  font-size: 13px;
-}
-.auswahl div:last-child {
-  border-bottom: 0;
-}
-.auswahl div.gewaehlt {
-  background: #ddd;
-}
-.trenn {
-  border-top: 1px dashed #999;
-  margin: 14px 0;
-}
-
-/* Tabelle */
-table.liste {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-table.liste th,
-table.liste td {
-  border: 1px solid #999;
-  padding: 5px 8px;
-  text-align: left;
-}
-table.liste th {
-  background: #e5e5e5;
-  font-size: 12px;
-}
-.status {
-  border: 1px solid #999;
-  padding: 1px 6px;
-  font-size: 11px;
-  background: #f0f0f0;
-  white-space: nowrap;
-}
-
-/* Popup */
-.popup {
-  border: 2px solid #666;
-  background: #fff;
-  padding: 12px;
-  margin: 10px auto;
-  max-width: 340px;
-}
-.popup .titel {
-  font-weight: bold;
-  font-size: 13px;
-  margin-bottom: 6px;
-}
-.popup p {
-  font-size: 13px;
-}
-.grau {
-  background: #eee;
-}
-
-/* Statusleiste */
-table.stand {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 12px;
-}
-table.stand td {
-  border: 1px solid #999;
-  padding: 6px 8px;
-  width: 25%;
-  vertical-align: top;
-}
-table.stand td.erledigt {
-  background: #ddd;
-}
-table.stand span {
-  display: block;
-  color: #555;
-  font-size: 11px;
-  margin-top: 3px;
-}
-
-ul {
-  margin: 8px 0 0;
-  padding-left: 20px;
-  font-size: 13px;
-  line-height: 1.5;
-}
-</style>
+<title>Wireframe Antragsverwaltung</title>
+<link rel="stylesheet" href="wireframe.css">
 </head>
 <body>
 
 <div id="inhalt">
 
-<h1>Wireframe: Antragsverfahren Unterrichtsorganisation</h1>
-<p>Skizze der Bildschirme in der Reihenfolge des Geschäftsprozesses. Beteiligte Rollen: Lehrer, Abteilungsleiter (AL), stellvertretender Schulleiter, Schulleiter.</p>
+<h1>Wireframe Antragsverwaltung</h1>
 
 <div class="kette">
-<table>
-<tr>
-<td><b>Lehrer</b><br><small>stellt Antrag</small></td>
-<td class="pfeil">&rarr;</td>
-<td><b>Abteilungsleiter</b><br><small>zeichnet ab</small></td>
-<td class="pfeil">&rarr;</td>
-<td><b>Stellv. Schulleiter</b><br><small>zeichnet ab</small></td>
-<td class="pfeil">&rarr;</td>
-<td><b>Schulleiter</b><br><small>genehmigt</small></td>
-</tr>
-</table>
+  <span>Lehrer</span><em>&rarr;</em>
+  <span>Abteilungsleiter</span><em>&rarr;</em>
+  <span>Stellv. Schulleiter</span><em>&rarr;</em>
+  <span>Schulleiter</span>
 </div>
 
 
 <h2>1. Login</h2>
 <div class="screen">
-  <div class="kopf">/login</div>
   <div class="inhalt">
-    <div style="max-width:300px">
-      <div class="feld">
-        <label>Benutzername</label>
-        <div class="kasten">m.keller</div>
-      </div>
-      <div class="feld">
-        <label>Passwort</label>
-        <div class="kasten">........</div>
-      </div>
-      <div class="knopfzeile">
-        <span class="knopf haupt">Anmelden</span>
-      </div>
-    </div>
+    <div class="feld"><label>Example</label><div class="kasten"></div></div>
+    <div class="feld"><label>Example</label><div class="kasten"></div></div>
+    <span class="knopf">Button</span>
   </div>
 </div>
-<p class="hinweis">Nach dem Login wird je nach Rolle die passende Startseite angezeigt: Lehrer sehen das Antragsformular, die Leitungen ihre Antragsliste.</p>
 
 
-<h2>2. Antrag stellen: Anlass auswaehlen und Formular ausfuellen</h2>
+<h2>2. Antrag stellen</h2>
 <div class="screen">
-  <div class="kopf">/antrag/neu <span class="rechts">M. Keller (Lehrer)</span></div>
+  <div class="kopf">Example</div>
   <div class="inhalt">
-
-    <div class="feld">
-      <label><b>1. Anlass</b></label>
-      <div class="kasten">Klassenfahrt &nbsp; [v]</div>
-    </div>
-    <div class="auswahl">
-      <div>Unterrichtsausfall / Vertretung</div>
-      <div class="gewaehlt">Klassenfahrt</div>
-      <div>Exkursion / Ausflug</div>
-      <div>Raumtausch</div>
-      <div>Sonstiges</div>
-    </div>
-
-    <div class="trenn"></div>
-
-    <p><b>2. Formular zum gewaehlten Anlass</b></p>
-    <div class="spalten">
-      <div class="spalte">
-        <div class="feld"><label>Klasse</label><div class="kasten">10b</div></div>
-        <div class="feld"><label>Von</label><div class="kasten">12.05.2026</div></div>
-        <div class="feld"><label>Ziel</label><div class="kasten">Weimar</div></div>
-      </div>
-      <div class="spalte">
-        <div class="feld"><label>Anzahl Schueler</label><div class="kasten">24</div></div>
-        <div class="feld"><label>Bis</label><div class="kasten">15.05.2026</div></div>
-        <div class="feld"><label>Begleitperson</label><div class="kasten">R. Ahmadi</div></div>
-      </div>
-    </div>
-
-    <div class="feld">
-      <label>Vertretung noetig fuer</label>
-      <div class="kasten gross">Mo 3./4. Stunde Mathe 9a, Di 1. Stunde Physik 10c</div>
-    </div>
-    <div class="feld">
-      <label>Anlage (optional)</label>
-      <div class="kasten">Datei waehlen ...</div>
-    </div>
-
-    <div class="knopfzeile">
-      <span class="knopf">Entwurf speichern</span>
-      <span class="knopf haupt">Antrag absenden</span>
-    </div>
+    <div class="feld"><label>Anlass</label><div class="kasten"></div></div>
+    <div class="feld"><label>Example</label><div class="kasten"></div></div>
+    <div class="feld"><label>Example</label><div class="kasten"></div></div>
+    <div class="feld"><label>Example</label><div class="kasten gross"></div></div>
+    <span class="knopf">Button</span>
+    <span class="knopf">Button</span>
   </div>
 </div>
-<p class="hinweis">Der Bereich unter der gestrichelten Linie wechselt je nach Anlass. Der Rahmen des Formulars bleibt gleich, nur der Feldblock wird ausgetauscht.</p>
 
 
-<h2>3. Absenden bestaetigen</h2>
+<h2>3. Antragsliste</h2>
 <div class="screen">
-  <div class="kopf">/antrag/neu</div>
+  <div class="kopf">Example</div>
+  <div class="inhalt">
+    <table>
+      <tr><th>Example</th><th>Example</th><th>Example</th><th>Status</th><th></th></tr>
+      <tr><td>etc.</td><td>etc.</td><td>etc.</td><td>etc.</td><td>Button</td></tr>
+      <tr><td>etc.</td><td>etc.</td><td>etc.</td><td>etc.</td><td>Button</td></tr>
+      <tr><td>etc.</td><td>etc.</td><td>etc.</td><td>etc.</td><td>Button</td></tr>
+    </table>
+  </div>
+</div>
+
+
+<h2>4. Antrag ansehen und abzeichnen</h2>
+<div class="screen">
+  <div class="kopf">Example</div>
+  <div class="inhalt">
+    <table>
+      <tr><td>Example</td><td>etc.</td></tr>
+      <tr><td>Example</td><td>etc.</td></tr>
+      <tr><td>Example</td><td>etc.</td></tr>
+    </table>
+    <div class="feld" style="margin-top:10px"><label>Example</label><div class="kasten gross"></div></div>
+    <span class="knopf">Button</span>
+    <span class="knopf">Button</span>
+  </div>
+</div>
+
+
+<h2>5. Bestaetigung 1 von 2</h2>
+<div class="screen">
   <div class="inhalt grau">
     <div class="popup">
-      <div class="titel">Antrag absenden</div>
-      <p>Klassenfahrt 10b, 12.05. bis 15.05.2026 wird an den Abteilungsleiter weitergeleitet. Nach dem Absenden ist keine Aenderung mehr moeglich.</p>
-      <span class="knopf">Zurueck</span>
-      <span class="knopf haupt">Absenden</span>
-    </div>
-  </div>
-</div>
-<p class="hinweis">Mit dem Absenden wird der erste Log-Eintrag erzeugt (Zeitpunkt, Benutzer, Aktion "eingereicht").</p>
-
-
-<h2>4. Liste der offenen Antraege (Abteilungsleiter)</h2>
-<div class="screen">
-  <div class="kopf">/antraege/offen <span class="rechts">S. Vogt (AL)</span></div>
-  <div class="inhalt">
-    <p>
-      <span class="knopf">Offen (3)</span>
-      <span class="knopf">Erledigt</span>
-    </p>
-    <table class="liste">
-      <tr>
-        <th>Nr.</th><th>Anlass</th><th>Antragsteller</th><th>Datum</th><th>Status</th><th></th>
-      </tr>
-      <tr>
-        <td>A-241</td><td>Klassenfahrt 10b</td><td>M. Keller</td><td>14.09.2026</td>
-        <td><span class="status">eingereicht</span></td><td><span class="knopf">Oeffnen</span></td>
-      </tr>
-      <tr>
-        <td>A-240</td><td>Exkursion 8a</td><td>P. Brandt</td><td>13.09.2026</td>
-        <td><span class="status">eingereicht</span></td><td><span class="knopf">Oeffnen</span></td>
-      </tr>
-      <tr>
-        <td>A-238</td><td>Raumtausch</td><td>L. Sommer</td><td>11.09.2026</td>
-        <td><span class="status">eingereicht</span></td><td><span class="knopf">Oeffnen</span></td>
-      </tr>
-    </table>
-  </div>
-</div>
-<p class="hinweis">Die gleiche Liste wird auch dem stellvertretenden Schulleiter und dem Schulleiter angezeigt. Ein Antrag erscheint dort erst, wenn die Stufe davor abgezeichnet hat.</p>
-
-
-<h2>5. Antrag oeffnen und abzeichnen (Abteilungsleiter)</h2>
-<div class="screen">
-  <div class="kopf">/antrag/A-241</div>
-  <div class="inhalt">
-    <p><b>Antrag A-241, Klassenfahrt</b></p>
-    <table class="liste">
-      <tr><td style="width:35%">Antragsteller</td><td>M. Keller</td></tr>
-      <tr><td>Klasse</td><td>10b, 24 Schueler</td></tr>
-      <tr><td>Zeitraum</td><td>12.05.2026 bis 15.05.2026</td></tr>
-      <tr><td>Ziel</td><td>Weimar</td></tr>
-      <tr><td>Vertretung</td><td>3 Stunden offen</td></tr>
-    </table>
-    <div class="feld" style="margin-top:12px">
-      <label>Bemerkung des Abteilungsleiters</label>
-      <div class="kasten gross">Vertretung geregelt: Fr. Ahmadi uebernimmt Mathe 9a.</div>
-    </div>
-    <div class="knopfzeile">
-      <span class="knopf">Ablehnen</span>
-      <span class="knopf haupt">Abzeichnen</span>
+      <div class="titel">Example</div>
+      <span class="knopf">Button</span>
+      <span class="knopf">Button</span>
     </div>
   </div>
 </div>
 
-<p>Nach Klick auf "Abzeichnen" folgt die zweifache Abfrage:</p>
 
+<h2>6. Bestaetigung 2 von 2</h2>
 <div class="screen">
-  <div class="kopf">/antrag/A-241</div>
   <div class="inhalt grau">
     <div class="popup">
-      <div class="titel">Abzeichnen (1 von 2)</div>
-      <p>Antrag A-241 abzeichnen und an den stellvertretenden Schulleiter weiterleiten?</p>
-      <span class="knopf">Abbrechen</span>
-      <span class="knopf haupt">Weiter</span>
-    </div>
-    <div class="popup">
-      <div class="titel">Abzeichnen (2 von 2)</div>
-      <p>Bitte bestaetigen Sie: Antrag A-241 wird verbindlich abgezeichnet. Der Vorgang wird protokolliert.</p>
-      <span class="knopf">Abbrechen</span>
-      <span class="knopf haupt">Verbindlich abzeichnen</span>
+      <div class="titel">Example</div>
+      <span class="knopf">Button</span>
+      <span class="knopf">Button</span>
     </div>
   </div>
 </div>
-<p class="hinweis">Es sind zwei aufeinanderfolgende Pop-Up-Fenster. Erst die zweite Bestaetigung erzeugt den Log-Eintrag und leitet den Antrag an die naechste Stufe weiter.</p>
 
 
-<h2>6. Abzeichnen durch den stellvertretenden Schulleiter</h2>
+<h2>7. Meine Antraege (Status)</h2>
 <div class="screen">
-  <div class="kopf">/antrag/A-241 <span class="rechts">K. Roth (stellv. SL)</span></div>
+  <div class="kopf">Example</div>
   <div class="inhalt">
-    <table class="stand">
-      <tr>
-        <td class="erledigt">Eingereicht<span>14.09.2026, Keller</span></td>
-        <td class="erledigt">AL abgezeichnet<span>14.09.2026, Vogt</span></td>
-        <td>Stellv. SL<span>offen</span></td>
-        <td>Genehmigung<span>offen</span></td>
-      </tr>
-    </table>
-    <div class="feld" style="margin-top:12px">
-      <label>Antragsdaten (nur Ansicht)</label>
-      <div class="kasten gross">Klassenfahrt 10b, Weimar, 12.05. bis 15.05.2026, 24 Schueler, Vertretung geregelt</div>
-    </div>
-    <div class="knopfzeile">
-      <span class="knopf">Ablehnen</span>
-      <span class="knopf haupt">Abzeichnen</span>
-    </div>
-  </div>
-</div>
-<p class="hinweis">Aufbau identisch zu Schritt 5, ebenfalls mit zweifacher Abfrage und Log-Eintrag.</p>
-
-
-<h2>7. Genehmigung durch den Schulleiter</h2>
-<div class="screen">
-  <div class="kopf">/antrag/A-241 <span class="rechts">Dr. Wenzel (SL)</span></div>
-  <div class="inhalt">
-    <table class="stand">
-      <tr>
-        <td class="erledigt">Eingereicht<span>14.09.2026, Keller</span></td>
-        <td class="erledigt">AL abgezeichnet<span>14.09.2026, Vogt</span></td>
-        <td class="erledigt">Stellv. SL abgezeichnet<span>15.09.2026, Roth</span></td>
-        <td>Genehmigung<span>offen</span></td>
-      </tr>
-    </table>
-    <div class="feld" style="margin-top:12px">
-      <label>Antragsdaten (nur Ansicht)</label>
-      <div class="kasten gross">Klassenfahrt 10b, Weimar, 12.05. bis 15.05.2026, 24 Schueler, Vertretung geregelt</div>
-    </div>
-    <div class="knopfzeile">
-      <span class="knopf">Ablehnen</span>
-      <span class="knopf haupt">Genehmigen</span>
-    </div>
-  </div>
-</div>
-<p class="hinweis">Nach der Genehmigung hat der Antrag den Status "genehmigt" und verschwindet aus allen Listen der offenen Antraege.</p>
-
-
-<h2>8. Bearbeitungsstand fuer den Antragsteller</h2>
-<div class="screen">
-  <div class="kopf">/meine-antraege <span class="rechts">M. Keller (Lehrer)</span></div>
-  <div class="inhalt">
-    <table class="liste">
-      <tr>
-        <th>Nr.</th><th>Anlass</th><th>Eingereicht</th><th>Stand</th>
-      </tr>
-      <tr>
-        <td>A-241</td><td>Klassenfahrt 10b</td><td>14.09.2026</td>
-        <td><span class="status">abgezeichnet stellv. SL</span></td>
-      </tr>
-      <tr>
-        <td>A-233</td><td>Exkursion 10b</td><td>02.09.2026</td>
-        <td><span class="status">genehmigt</span></td>
-      </tr>
-      <tr>
-        <td>A-229</td><td>Raumtausch</td><td>28.08.2026</td>
-        <td><span class="status">abgelehnt</span></td>
-      </tr>
-    </table>
-
-    <p style="margin-top:14px"><b>Verlauf zu A-241</b></p>
-    <table class="stand">
-      <tr>
-        <td class="erledigt">Eingereicht<span>14.09.2026, 08:12</span></td>
-        <td class="erledigt">AL abgezeichnet<span>14.09.2026, 11:40</span></td>
-        <td class="erledigt">Stellv. SL abgezeichnet<span>15.09.2026, 09:05</span></td>
-        <td>Genehmigt<span>-</span></td>
-      </tr>
+    <table>
+      <tr><th>Example</th><th>Example</th><th>Status</th></tr>
+      <tr><td>etc.</td><td>etc.</td><td>etc.</td></tr>
+      <tr><td>etc.</td><td>etc.</td><td>etc.</td></tr>
     </table>
   </div>
 </div>
-<p class="hinweis">Der Antragsteller sieht jederzeit, auf welcher Stufe sein Antrag steht. Gleiche Darstellung wie bei den Leitungen, jedoch ohne Bearbeitungsknoepfe.</p>
-
-
-<h2>Anmerkungen</h2>
-<ul>
-<li>Ein Log-Eintrag wird erzeugt bei: Absenden, Abzeichnen durch AL, Abzeichnen durch stellv. Schulleiter, Genehmigung durch Schulleiter sowie bei Ablehnung.</li>
-<li>Ein Log-Eintrag enthaelt Zeitstempel, Benutzer, Aktion und Antragsnummer.</li>
-<li>Die Rolle steuert nur, welche Antraege in der Liste erscheinen und welche Knoepfe sichtbar sind. Der Aufbau der Bildschirme ist fuer alle Leitungsstufen gleich.</li>
-<li>Eine Ablehnung beendet den Durchlauf. Sie wird dem Antragsteller im Verlauf angezeigt.</li>
-</ul>
 
 </div>
 
