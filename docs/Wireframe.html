@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wireframe Antragsverwaltung</title>
+<style>
+@page {
+  size: A4;
+  margin: 20mm 16mm;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  color: #000;
+  background: #fff;
+  margin: 0;
+}
+
+.seite {
+  max-width: 760px;
+  margin: 0 auto 40px;
+}
+
+@media print {
+  .seite {
+    max-width: none;
+    margin: 0;
+    break-after: page;
+    page-break-after: always;
+  }
+  .seite:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+}
+
+h2 {
+  font-size: 16px;
+  margin: 0 0 10px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #000;
+}
+
+h3 {
+  font-size: 14px;
+  margin: 18px 0 8px;
+}
+
+.notiz {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: #444;
+}
+
+/* Bildschirm */
+.screen {
+  border: 1px solid #999;
+  background: #fff;
+}
+
+.kopf {
+  overflow: hidden;
+  padding: 5px 10px;
+  font-size: 12px;
+  color: #333;
+  background: #e5e5e5;
+  border-bottom: 1px solid #999;
+}
+
+.kopf .rechts {
+  float: right;
+}
+
+.inhalt {
+  padding: 12px;
+}
+
+.grau {
+  background: #eee;
+}
+
+/* Formular */
+.feld {
+  margin-bottom: 10px;
+}
+
+.feld label {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 12px;
+}
+
+.kasten {
+  min-height: 16px;
+  padding: 6px 8px;
+  color: #555;
+  background: #fff;
+  border: 1px solid #999;
+}
+
+.schmal {
+  max-width: 300px;
+}
+
+.spalten {
+  display: table;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 10px 0;
+  margin: 0 -10px;
+}
+
+.spalte {
+  display: table-cell;
+  width: 50%;
+  vertical-align: top;
+}
+
+.auswahl {
+  border: 1px solid #999;
+}
+
+.auswahl div {
+  padding: 5px 8px;
+  font-size: 13px;
+  border-bottom: 1px solid #ccc;
+}
+
+.auswahl div:last-child {
+  border-bottom: 0;
+}
+
+.auswahl .gewaehlt {
+  background: #ddd;
+}
+
+.trenn {
+  margin: 14px 0;
+  border-top: 1px dashed #999;
+}
+
+.untertitel {
+  margin: 0 0 8px;
+  font-weight: bold;
+}
+
+.knopf {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 5px 12px;
+  font-size: 13px;
+  background: #ddd;
+  border: 1px solid #666;
+}
+
+.knopf.haupt {
+  color: #fff;
+  background: #999;
+}
+
+.knopfzeile {
+  margin-top: 12px;
+}
+
+/* Tabellen */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+th,
+td {
+  padding: 6px 8px;
+  text-align: left;
+  border: 1px solid #999;
+}
+
+th {
+  font-size: 12px;
+  background: #e5e5e5;
+}
+
+.status {
+  padding: 1px 6px;
+  font-size: 11px;
+  white-space: nowrap;
+  background: #f0f0f0;
+  border: 1px solid #999;
+}
+
+.stand td {
+  width: 25%;
+  font-size: 12px;
+  vertical-align: top;
+}
+
+.stand td.erledigt {
+  background: #ddd;
+}
+
+.stand span {
+  display: block;
+  margin-top: 3px;
+  font-size: 11px;
+  color: #555;
+}
+
+/* Pop-up */
+.popup {
+  max-width: 360px;
+  margin: 12px auto;
+  padding: 12px;
+  background: #fff;
+  border: 2px solid #666;
+}
+
+.popup .titel {
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.popup p {
+  margin: 0 0 10px;
+  font-size: 13px;
+}
+</style>
+</head>
+<body>
+
+
+<div class="seite">
+<h2>1. Login</h2>
+<div class="screen">
+  <div class="kopf">/login</div>
+  <div class="inhalt">
+    <div class="schmal">
+      <div class="feld"><label>Benutzername</label><div class="kasten">m.keller</div></div>
+      <div class="feld"><label>Passwort</label><div class="kasten">........</div></div>
+      <div class="knopfzeile"><span class="knopf haupt">Anmelden</span></div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<div class="seite">
+<h2>2. Antrag stellen: Anlass auswählen und Formular ausfüllen</h2>
+<div class="screen">
+  <div class="kopf">/antrag/neu <span class="rechts">M. Keller (Lehrer)</span></div>
+  <div class="inhalt">
+    <div class="feld">
+      <label><b>1. Anlass</b></label>
+      <div class="kasten">Klassenfahrt &nbsp; [v]</div>
+    </div>
+    <div class="auswahl">
+      <div>Fortbildung</div>
+      <div class="gewaehlt">Klassenfahrt</div>
+      <div>Exkursion</div>
+      <div>Sonstiges</div>
+    </div>
+
+    <div class="trenn"></div>
+
+    <p class="untertitel">2. Formular zum gewählten Anlass</p>
+    <div class="spalten">
+      <div class="spalte">
+        <div class="feld"><label>Klasse</label><div class="kasten">10b</div></div>
+        <div class="feld"><label>Von</label><div class="kasten">12.05.2026</div></div>
+        <div class="feld"><label>Begleitperson</label><div class="kasten">R. Ahmadi</div></div>
+      </div>
+      <div class="spalte">
+        <div class="feld"><label>Ziel</label><div class="kasten">Weimar</div></div>
+        <div class="feld"><label>Bis</label><div class="kasten">15.05.2026</div></div>
+      </div>
+    </div>
+    <div class="feld"><label>Anlage (optional)</label><div class="kasten">Datei wählen ...</div></div>
+
+    <div class="knopfzeile"><span class="knopf haupt">Antrag absenden</span></div>
+  </div>
+</div>
+<p class="notiz">Die Felder unter „2.“ hängen vom gewählten Anlass ab. Nach Klick auf „Antrag absenden“ folgt die Abfrage (Schritt 3).</p>
+</div>
+
+
+<div class="seite">
+<h2>3. Absenden bestätigen</h2>
+<div class="screen">
+  <div class="kopf">/antrag/neu</div>
+  <div class="inhalt grau">
+    <div class="popup">
+      <div class="titel">Antrag absenden</div>
+      <p>Klassenfahrt 10b, 12.05. bis 15.05.2026 wird an den Abteilungsleiter weitergeleitet. Nach dem Absenden ist keine Änderung mehr möglich.</p>
+      <span class="knopf">Zurück</span>
+      <span class="knopf haupt">Absenden</span>
+    </div>
+  </div>
+</div>
+<p class="notiz">Beim Absenden wird ein Log-Eintrag erstellt und der Antrag erscheint beim Abteilungsleiter.</p>
+</div>
+
+
+<div class="seite">
+<h2>4. Anträge beim Abteilungsleiter</h2>
+<div class="screen">
+  <div class="kopf">/antraege <span class="rechts">S. Vogt (Abteilungsleiter)</span></div>
+  <div class="inhalt">
+    <table>
+      <tr><th>Nr.</th><th>Anlass</th><th>Antragsteller</th><th>Datum</th><th>Status</th><th></th></tr>
+      <tr><td>A-241</td><td>Klassenfahrt</td><td>M. Keller</td><td>14.09.2026</td><td><span class="status">eingereicht</span></td><td><span class="knopf">Öffnen</span></td></tr>
+      <tr><td>A-240</td><td>Exkursion</td><td>P. Brandt</td><td>13.09.2026</td><td><span class="status">eingereicht</span></td><td><span class="knopf">Öffnen</span></td></tr>
+      <tr><td>A-238</td><td>Fortbildung</td><td>L. Sommer</td><td>11.09.2026</td><td><span class="status">eingereicht</span></td><td><span class="knopf">Öffnen</span></td></tr>
+    </table>
+  </div>
+</div>
+</div>
+
+
+<div class="seite">
+<h2>5. Antrag abzeichnen (Abteilungsleiter)</h2>
+<div class="screen">
+  <div class="kopf">/antrag/A-241 <span class="rechts">S. Vogt (Abteilungsleiter)</span></div>
+  <div class="inhalt">
+    <p class="untertitel">Antrag A-241, Klassenfahrt</p>
+    <table>
+      <tr><td style="width:35%">Antragsteller</td><td>M. Keller</td></tr>
+      <tr><td>Klasse</td><td>10b</td></tr>
+      <tr><td>Ziel</td><td>Weimar</td></tr>
+      <tr><td>Zeitraum</td><td>12.05.2026 bis 15.05.2026</td></tr>
+      <tr><td>Begleitperson</td><td>R. Ahmadi</td></tr>
+      <tr><td>Anlage</td><td>Programm_Weimar.pdf</td></tr>
+    </table>
+    <div class="knopfzeile"><span class="knopf haupt">Abzeichnen</span></div>
+  </div>
+</div>
+<p class="notiz">Nach Klick auf „Abzeichnen“ folgt die zweifache Abfrage (Schritt 6).</p>
+</div>
+
+
+<div class="seite">
+<h2>6. Zweifache Abfrage beim Abzeichnen</h2>
+<div class="screen">
+  <div class="kopf">/antrag/A-241</div>
+  <div class="inhalt grau">
+    <div class="popup">
+      <div class="titel">Abzeichnen (1 von 2)</div>
+      <p>Möchten Sie den Antrag A-241 abzeichnen?</p>
+      <span class="knopf">Abbrechen</span>
+      <span class="knopf haupt">Weiter</span>
+    </div>
+    <div class="popup">
+      <div class="titel">Abzeichnen (2 von 2)</div>
+      <p>Bitte bestätigen Sie: Antrag A-241 wird verbindlich abgezeichnet.</p>
+      <span class="knopf">Abbrechen</span>
+      <span class="knopf haupt">Bestätigen</span>
+    </div>
+  </div>
+</div>
+<p class="notiz">Nach der zweiten Bestätigung wird ein Log-Eintrag erstellt und der Antrag erscheint beim stellvertretenden Schulleiter.</p>
+</div>
+
+
+<div class="seite">
+<h2>7. Antrag abzeichnen (stellvertretender Schulleiter)</h2>
+<div class="screen">
+  <div class="kopf">/antraege <span class="rechts">K. Roth (stellv. Schulleiter)</span></div>
+  <div class="inhalt">
+    <table>
+      <tr><th>Nr.</th><th>Anlass</th><th>Antragsteller</th><th>Datum</th><th>Status</th><th></th></tr>
+      <tr><td>A-241</td><td>Klassenfahrt</td><td>M. Keller</td><td>14.09.2026</td><td><span class="status">abgezeichnet vom AL</span></td><td><span class="knopf">Öffnen</span></td></tr>
+    </table>
+
+    <h3>Antrag A-241, Klassenfahrt</h3>
+    <table>
+      <tr><td style="width:35%">Antragsteller</td><td>M. Keller</td></tr>
+      <tr><td>Klasse</td><td>10b</td></tr>
+      <tr><td>Ziel</td><td>Weimar</td></tr>
+      <tr><td>Zeitraum</td><td>12.05.2026 bis 15.05.2026</td></tr>
+      <tr><td>Begleitperson</td><td>R. Ahmadi</td></tr>
+      <tr><td>Anlage</td><td>Programm_Weimar.pdf</td></tr>
+    </table>
+    <div class="knopfzeile"><span class="knopf haupt">Abzeichnen</span></div>
+  </div>
+</div>
+<p class="notiz">Zweifache Abfrage wie in Schritt 6. Danach wird ein Log-Eintrag erstellt und der Antrag erscheint beim Schulleiter.</p>
+</div>
+
+
+<div class="seite">
+<h2>8. Antrag genehmigen (Schulleiter)</h2>
+<div class="screen">
+  <div class="kopf">/antraege <span class="rechts">Dr. Wenzel (Schulleiter)</span></div>
+  <div class="inhalt">
+    <table>
+      <tr><th>Nr.</th><th>Anlass</th><th>Antragsteller</th><th>Datum</th><th>Status</th><th></th></tr>
+      <tr><td>A-241</td><td>Klassenfahrt</td><td>M. Keller</td><td>14.09.2026</td><td><span class="status">abgezeichnet vom stellv. Schulleiter</span></td><td><span class="knopf">Öffnen</span></td></tr>
+    </table>
+
+    <h3>Antrag A-241, Klassenfahrt</h3>
+    <table>
+      <tr><td style="width:35%">Antragsteller</td><td>M. Keller</td></tr>
+      <tr><td>Klasse</td><td>10b</td></tr>
+      <tr><td>Ziel</td><td>Weimar</td></tr>
+      <tr><td>Zeitraum</td><td>12.05.2026 bis 15.05.2026</td></tr>
+      <tr><td>Begleitperson</td><td>R. Ahmadi</td></tr>
+      <tr><td>Anlage</td><td>Programm_Weimar.pdf</td></tr>
+    </table>
+    <div class="knopfzeile"><span class="knopf haupt">Genehmigen</span></div>
+  </div>
+</div>
+<p class="notiz">Beim Genehmigen wird ein Log-Eintrag erstellt.</p>
+</div>
+
+
+<div class="seite">
+<h2>9. Bearbeitungsstand für den Antragsteller</h2>
+<div class="screen">
+  <div class="kopf">/meine-antraege <span class="rechts">M. Keller (Lehrer)</span></div>
+  <div class="inhalt">
+    <table>
+      <tr><th>Nr.</th><th>Anlass</th><th>Eingereicht</th><th>Stand</th></tr>
+      <tr><td>A-241</td><td>Klassenfahrt</td><td>14.09.2026</td><td><span class="status">abgezeichnet vom stellv. Schulleiter</span></td></tr>
+      <tr><td>A-233</td><td>Exkursion</td><td>02.09.2026</td><td><span class="status">genehmigt vom Schulleiter</span></td></tr>
+    </table>
+
+    <h3>Stand zu A-241</h3>
+    <table class="stand">
+      <tr>
+        <td class="erledigt">Eingereicht<span>14.09.2026</span></td>
+        <td class="erledigt">Abgezeichnet vom AL<span>14.09.2026</span></td>
+        <td class="erledigt">Abgezeichnet vom stellv. Schulleiter<span>15.09.2026</span></td>
+        <td>Genehmigt vom Schulleiter<span>offen</span></td>
+      </tr>
+    </table>
+    <div class="knopfzeile"><span class="knopf">Antrag löschen</span></div>
+  </div>
+</div>
+<p class="notiz">Solange der Antrag nicht genehmigt ist, kann der Antragsteller ihn löschen (Schritt 10). Bei genehmigten Anträgen gibt es diesen Knopf nicht.</p>
+</div>
+
+
+<div class="seite">
+<h2>10. Antrag löschen</h2>
+<div class="screen">
+  <div class="kopf">/meine-antraege</div>
+  <div class="inhalt grau">
+    <div class="popup">
+      <div class="titel">Antrag löschen</div>
+      <p>Antrag A-241 wird gelöscht und nicht weiter bearbeitet. Das kann nicht rückgängig gemacht werden.</p>
+      <span class="knopf">Zurück</span>
+      <span class="knopf haupt">Löschen</span>
+    </div>
+  </div>
+</div>
+<p class="notiz">Beim Löschen wird ein Log-Eintrag erstellt. Der Antrag verschwindet aus allen Listen.</p>
+</div>
+
+</body>
+</html>

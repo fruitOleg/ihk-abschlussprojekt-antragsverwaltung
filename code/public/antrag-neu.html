@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Antrag stellen – Antragsverwaltung</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header id="kopf" class="kopf"></header>
+
+<main class="inhalt" data-hinweise>
+  <h1>Antrag stellen</h1>
+
+  <form id="antragFormular" class="karte stapel" novalidate>
+    <fieldset>
+      <legend>1. Anlass</legend>
+      <div class="formular-raster">
+        <div class="feld">
+          <label for="anlass">Anlass</label>
+          <select id="anlass" name="anlass"></select>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset id="angaben" hidden>
+      <legend>2. Formular zum gewählten Anlass</legend>
+      <div id="felder" class="formular-raster"></div>
+    </fieldset>
+
+    <div class="knopfzeile knopfzeile--links">
+      <button class="knopf" type="submit">Antrag absenden</button>
+    </div>
+  </form>
+</main>
+
+<script src="js/daten.js"></script>
+<script src="js/app.js"></script>
+<script src="js/antrag-neu.js"></script>
+</body>
+</html>
