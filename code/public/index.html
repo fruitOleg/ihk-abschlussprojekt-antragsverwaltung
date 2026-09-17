@@ -29,11 +29,19 @@
     </section>
 
     <!-- nur für den Prototyp, entfällt mit dem PHP-Login -->
-    <p class="demo leise">
-      Demo: <b>keller</b>, <b>brandt</b> (Lehrer) · <b>vogt</b> (AL) · <b>roth</b> (stellv. SL) · <b>wenzel</b> (SL),
-      beliebiges Passwort.
-      <button type="button" class="link" id="zuruecksetzen">Demodaten zurücksetzen</button>
-    </p>
+    <section class="karte demo" aria-labelledby="demo-titel">
+      <h2 id="demo-titel">Demo-Zugänge</h2>
+      <p class="leise">Prototyp ohne Server: Das Passwort wird noch nicht geprüft.</p>
+      <div class="tabelle-rahmen">
+        <table class="tabelle">
+          <thead>
+            <tr><th scope="col">Benutzer</th><th scope="col">Name</th><th scope="col">Rolle</th></tr>
+          </thead>
+          <tbody id="demoZugaenge"></tbody>
+        </table>
+      </div>
+      <p class="demo__fuss"><button type="button" class="link" id="zuruecksetzen">Demodaten zurücksetzen</button></p>
+    </section>
 
   </div>
 </main>

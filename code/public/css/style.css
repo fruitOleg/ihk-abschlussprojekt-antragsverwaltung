@@ -551,9 +551,12 @@ textarea:focus {
   margin-top: 1.25rem;
 }
 
-.demo {
-  font-size: 0.875rem;
-  text-align: center;
+.demo p {
+  margin-bottom: 0.75rem;
+}
+
+.demo .demo__fuss {
+  margin: 0.75rem 0 0;
 }
 
 /* ---------- Schmale Bildschirme ---------- */
