@@ -1,2 +1,6 @@
 # nur lokale Arbeitsdatei, nicht Teil der Abgabe
 docs/wireframe-styled.html
+
+# lokale Zugangsdaten
+code/config.local.php
+code/sql/setup.local.sql
