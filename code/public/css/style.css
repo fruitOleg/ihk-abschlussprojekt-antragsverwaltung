@@ -1,0 +1,577 @@
+/* Antragsverwaltung – Stylesheet für alle Seiten */
+
+:root {
+  --grund: #f3f4f6;
+  --flaeche: #ffffff;
+  --text: #1c2230;
+  --text-leise: #5a6272;
+  --linie: #d8dce2;
+  --linie-hell: #e8ebef;
+  --akzent: #1f5c8b;
+  --akzent-dunkel: #174669;
+  --akzent-hell: #e6eef5;
+  --gut: #25734a;
+  --gut-hell: #e3f2e9;
+  --warn: #875800;
+  --warn-hell: #fbf0d9;
+  --fehler: #b42318;
+  --fehler-hell: #fdecea;
+  --radius: 6px;
+  --schatten: 0 1px 2px rgba(16, 24, 40, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--grund);
+}
+
+a {
+  color: var(--akzent);
+}
+
+a:hover {
+  color: var(--akzent-dunkel);
+}
+
+:focus-visible {
+  outline: 3px solid #86b3d9;
+  outline-offset: 2px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+
+h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+  line-height: 1.3;
+}
+
+p {
+  margin: 0;
+}
+
+.unsichtbar {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.leise {
+  color: var(--text-leise);
+}
+
+/* ---------- Kopfzeile ---------- */
+
+.kopf {
+  background: var(--flaeche);
+  border-bottom: 1px solid var(--linie);
+}
+
+.kopf__innen {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0.6rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.kopf__marke {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.kopf__nav {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.kopf__nav a {
+  padding: 0.4rem 0.7rem;
+  font-weight: 600;
+  color: var(--text-leise);
+  text-decoration: none;
+  border-radius: var(--radius);
+}
+
+.kopf__nav a:hover {
+  color: var(--text);
+  background: var(--grund);
+}
+
+.kopf__nav a[aria-current="page"] {
+  color: var(--akzent-dunkel);
+  background: var(--akzent-hell);
+}
+
+.kopf__benutzer {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-leise);
+}
+
+/* ---------- Seitenaufbau ---------- */
+
+.inhalt {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.stapel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.stapel--eng {
+  gap: 0.5rem;
+}
+
+.karte {
+  padding: 1.25rem;
+  background: var(--flaeche);
+  border: 1px solid var(--linie);
+  border-radius: var(--radius);
+  box-shadow: var(--schatten);
+}
+
+.leer {
+  padding: 1.5rem 1rem;
+  text-align: center;
+  color: var(--text-leise);
+}
+
+.zurueck a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ---------- Knöpfe ---------- */
+
+.knopf {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  font: inherit;
+  font-weight: 600;
+  color: #fff;
+  background: var(--akzent);
+  border: 1px solid var(--akzent);
+  border-radius: var(--radius);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.knopf:hover {
+  color: #fff;
+  background: var(--akzent-dunkel);
+  border-color: var(--akzent-dunkel);
+}
+
+.knopf--zweit {
+  color: var(--text);
+  background: var(--flaeche);
+  border-color: var(--linie);
+}
+
+.knopf--zweit:hover {
+  color: var(--text);
+  background: var(--grund);
+  border-color: #c3c9d1;
+}
+
+.knopf--gefahr {
+  background: var(--fehler);
+  border-color: var(--fehler);
+}
+
+.knopf--gefahr:hover {
+  background: #8f1c13;
+  border-color: #8f1c13;
+}
+
+.knopf--gefahr-zweit {
+  color: var(--fehler);
+  background: var(--flaeche);
+  border-color: #e7b4ae;
+}
+
+.knopf--gefahr-zweit:hover {
+  color: #8f1c13;
+  background: var(--fehler-hell);
+  border-color: var(--fehler);
+}
+
+.knopf--leise {
+  color: var(--text-leise);
+  background: transparent;
+  border-color: transparent;
+}
+
+.knopf--leise:hover {
+  color: var(--text);
+  background: var(--grund);
+  border-color: transparent;
+}
+
+.knopf--klein {
+  padding: 0.3rem 0.7rem;
+  font-size: 0.875rem;
+}
+
+.knopf--voll {
+  width: 100%;
+}
+
+.knopfzeile {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.knopfzeile--links {
+  justify-content: flex-start;
+}
+
+.link {
+  padding: 0;
+  font: inherit;
+  color: var(--akzent);
+  background: none;
+  border: 0;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ---------- Formulare ---------- */
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+legend {
+  margin-bottom: 0.75rem;
+  padding: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.formular-raster {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 1.25rem;
+}
+
+.feld {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.feld--breit {
+  grid-column: 1 / -1;
+}
+
+.feld label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  font: inherit;
+  color: inherit;
+  background: #fff;
+  border: 1px solid #c3c9d1;
+  border-radius: var(--radius);
+}
+
+textarea {
+  min-height: 4.5rem;
+  resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--akzent);
+  outline: 3px solid var(--akzent-hell);
+  outline-offset: 0;
+}
+
+[aria-invalid="true"] {
+  border-color: var(--fehler);
+}
+
+.feld__fehler {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--fehler);
+}
+
+/* ---------- Tabellen ---------- */
+
+.tabelle-rahmen {
+  overflow-x: auto;
+  background: var(--flaeche);
+  border: 1px solid var(--linie);
+  border-radius: var(--radius);
+  box-shadow: var(--schatten);
+}
+
+.karte .tabelle-rahmen {
+  box-shadow: none;
+}
+
+.tabelle {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.925rem;
+}
+
+.tabelle th,
+.tabelle td {
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--linie-hell);
+}
+
+.tabelle thead th {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--text-leise);
+  background: #f7f8fa;
+}
+
+.tabelle tbody tr:last-child th,
+.tabelle tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.tabelle tbody tr:hover {
+  background: #fafbfc;
+}
+
+.tabelle tr.gewaehlt,
+.tabelle tr.gewaehlt:hover {
+  background: var(--akzent-hell);
+}
+
+.tabelle .zahl {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.tabelle .rechts {
+  text-align: right;
+}
+
+/* Beschriftung links, Wert rechts */
+.tabelle--angaben th {
+  width: 35%;
+  font-weight: 400;
+  color: var(--text-leise);
+  background: #fafbfc;
+}
+
+/* ---------- Status ---------- */
+
+.status {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+  border-radius: 999px;
+}
+
+.status--eingereicht {
+  color: var(--akzent-dunkel);
+  background: var(--akzent-hell);
+}
+
+.status--abgezeichnet_al,
+.status--abgezeichnet_ssl {
+  color: var(--warn);
+  background: var(--warn-hell);
+}
+
+.status--genehmigt {
+  color: var(--gut);
+  background: var(--gut-hell);
+}
+
+/* ---------- Bearbeitungsstand ---------- */
+
+.stand {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+  border: 1px solid var(--linie);
+  border-radius: var(--radius);
+}
+
+.stand li {
+  padding: 0.7rem 0.85rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-right: 1px solid var(--linie);
+}
+
+.stand li:last-child {
+  border-right: 0;
+}
+
+.stand small {
+  display: block;
+  font-weight: 400;
+  color: var(--text-leise);
+}
+
+.stand .erledigt {
+  color: var(--akzent-dunkel);
+  background: var(--akzent-hell);
+}
+
+/* ---------- Hinweise ---------- */
+
+.hinweis {
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  border: 1px solid;
+  border-radius: var(--radius);
+}
+
+.hinweis--erfolg {
+  color: var(--gut);
+  background: var(--gut-hell);
+  border-color: #b9dcc7;
+}
+
+.hinweis--fehler {
+  color: var(--fehler);
+  background: var(--fehler-hell);
+  border-color: #f0bdb7;
+}
+
+/* ---------- Pop-up ---------- */
+
+.dialog {
+  width: min(26rem, calc(100vw - 2rem));
+  padding: 1.5rem;
+  color: var(--text);
+  border: 0;
+  border-radius: 8px;
+  box-shadow: 0 20px 50px rgba(16, 24, 40, 0.25);
+}
+
+.dialog::backdrop {
+  background: rgba(16, 24, 40, 0.45);
+}
+
+.dialog__titel {
+  margin-bottom: 0.5rem;
+  font-size: 1.15rem;
+}
+
+.dialog__text {
+  color: var(--text-leise);
+}
+
+.dialog .knopfzeile {
+  margin-top: 1.5rem;
+}
+
+/* ---------- Login ---------- */
+
+.anmeldung {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1rem;
+}
+
+.anmeldung__box {
+  width: min(30rem, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.anmeldung__formular {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.demo p {
+  margin-bottom: 0.75rem;
+}
+
+.demo .demo__fuss {
+  margin: 0.75rem 0 0;
+}
+
+/* ---------- Schmale Bildschirme ---------- */
+
+@media (max-width: 700px) {
+  .formular-raster {
+    grid-template-columns: 1fr;
+  }
+
+  .kopf__benutzer {
+    width: 100%;
+    margin-left: 0;
+    justify-content: space-between;
+  }
+
+  .stand {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stand li {
+    border-bottom: 1px solid var(--linie);
+  }
+}
