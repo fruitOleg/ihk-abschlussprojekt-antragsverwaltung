@@ -395,6 +395,11 @@ textarea:focus {
   background: var(--akzent-hell);
 }
 
+/* Status-Plakette hebt sich sonst nicht von der markierten Zeile ab */
+.tabelle tr.gewaehlt .status--eingereicht {
+  background: var(--flaeche);
+}
+
 .tabelle .zahl {
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
@@ -546,12 +551,9 @@ textarea:focus {
   margin-top: 1.25rem;
 }
 
-.demo p {
-  margin-bottom: 0.75rem;
-}
-
-.demo .demo__fuss {
-  margin: 0.75rem 0 0;
+.demo {
+  font-size: 0.875rem;
+  text-align: center;
 }
 
 /* ---------- Schmale Bildschirme ---------- */
@@ -574,4 +576,32 @@ textarea:focus {
   .stand li {
     border-bottom: 1px solid var(--linie);
   }
+}
+
+/* ---------- Abmelden-Formular im Kopf (PHP) ---------- */
+
+.kopf__benutzer form {
+  margin: 0;
+}
+
+/* ---------- Datei-Auswahl ---------- */
+
+.feld__hilfe {
+  font-size: 0.85rem;
+  color: var(--text-leise);
+}
+
+input[type="file"] {
+  padding: 0.3rem;
+}
+
+input[type="file"]::file-selector-button {
+  margin-right: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  font: inherit;
+  color: var(--text);
+  background: var(--grund);
+  border: 1px solid #c3c9d1;
+  border-radius: 4px;
+  cursor: pointer;
 }

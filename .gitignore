@@ -1,6 +1,9 @@
 # nur lokale Arbeitsdatei, nicht Teil der Abgabe
 docs/wireframe-styled.html
 
+# PHP-Anwendung und Datenbank: erst nach Freigabe durch den Lehrer
+code/app/
+code/sql/
+
 # lokale Zugangsdaten
 code/config.local.php
-code/sql/setup.local.sql

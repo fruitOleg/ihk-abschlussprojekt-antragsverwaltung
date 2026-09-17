@@ -58,7 +58,7 @@
 
     const ok = await App.bestaetigen({
       titel: 'Antrag absenden',
-      text: `${kurzbeschreibung(anlass, daten)} wird an den Abteilungsleiter weitergeleitet. Nach dem Absenden ist keine Änderung mehr möglich.`,
+      text: `Ihr Antrag „${anlass.titel}“ wird an den Abteilungsleiter weitergeleitet. Nach dem Absenden ist keine Änderung mehr möglich.`,
       ja: 'Absenden',
       nein: 'Zurück'
     });
@@ -75,21 +75,16 @@
     let eingabe;
     if (feld.typ === 'textarea') {
       eingabe = `<textarea id="${id}" name="${feld.name}" rows="3"></textarea>`;
+    } else if (feld.typ === 'file') {
+      eingabe = `<input id="${id}" name="${feld.name}" type="file" accept=".pdf,.jpg,.jpeg,.png" aria-describedby="${id}-hilfe">
+        <small class="feld__hilfe" id="${id}-hilfe">PDF, JPG oder PNG, höchstens 5 MB</small>`;
     } else {
       eingabe = `<input id="${id}" name="${feld.name}" type="${feld.typ}">`;
     }
-    const breit = feld.typ === 'textarea' || feld.typ === 'file' ? ' feld--breit' : '';
+    const breit = feld.typ === 'textarea' ? ' feld--breit' : '';
     return `<div class="feld${breit}"><label for="${id}">${feld.label}</label>${eingabe}</div>`;
   }
 
-  // z. B. "Klassenfahrt 10b, 12.05.2026 bis 15.05.2026"
-  function kurzbeschreibung(anlass, daten) {
-    let text = anlass.titel;
-    if (daten.klasse) text += ` ${daten.klasse}`;
-    if (daten.von && daten.bis) text += `, ${App.datum(daten.von)} bis ${App.datum(daten.bis)}`;
-    if (daten.datum) text += `, ${App.datum(daten.datum)}`;
-    return text;
-  }
 
   // gibt das erste fehlerhafte Feld zurück oder null
   function pruefen(anlass) {
