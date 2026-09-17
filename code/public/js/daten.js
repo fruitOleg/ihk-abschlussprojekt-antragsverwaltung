@@ -8,7 +8,7 @@
 const Daten = (() => {
   'use strict';
 
-  const SPEICHER = 'antragsverwaltung-demo-v3';
+  const SPEICHER = 'antragsverwaltung-demo-v4';
 
   const ROLLEN = {
     lehrer: 'Lehrer',
@@ -57,7 +57,7 @@ const Daten = (() => {
     },
     exkursion: {
       titel: 'Exkursion',
-      felder: [KLASSE, ZIEL, { name: 'datum', label: 'Datum', typ: 'date' }, ANLAGE]
+      felder: [KLASSE, ZIEL, VON, BIS, ANLAGE]
     },
     sonstiges: {
       titel: 'Sonstiges',
@@ -142,7 +142,7 @@ const Daten = (() => {
       ['wenzel', 'genehmigt', vorTagen(6, 14, 30)]
     ]);
 
-    anlegen(239, 'keller', 'exkursion', { klasse: '10a', ziel: 'Landtag', datum: datumIn(5), anlage: '' }, [
+    anlegen(239, 'keller', 'exkursion', { klasse: '10a', ziel: 'Landtag', von: datumIn(5), bis: datumIn(5), anlage: '' }, [
       ['keller', 'eingereicht', vorTagen(5, 7, 50)],
       ['vogt', 'abgezeichnet_al', vorTagen(4, 12, 15)],
       ['roth', 'abgezeichnet_ssl', vorTagen(3, 9, 30)]

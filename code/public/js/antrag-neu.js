@@ -58,7 +58,7 @@
 
     const ok = await App.bestaetigen({
       titel: 'Antrag absenden',
-      text: `Ihr Antrag „${anlass.titel}“ wird an den Abteilungsleiter weitergeleitet. Nach dem Absenden ist keine Änderung mehr möglich.`,
+      text: `${kurzbeschreibung(anlass, daten)} wird an den Abteilungsleiter weitergeleitet. Nach dem Absenden ist keine Änderung mehr möglich.`,
       ja: 'Absenden',
       nein: 'Zurück'
     });
@@ -85,6 +85,18 @@
     return `<div class="feld${breit}"><label for="${id}">${feld.label}</label>${eingabe}</div>`;
   }
 
+  // wie im Wireframe, z. B. "Klassenfahrt 10b, 12.05. bis 15.05.2026"
+  function kurzbeschreibung(anlass, daten) {
+    let text = anlass.titel;
+    if (daten.klasse) text += ` ${daten.klasse}`;
+    if (daten.von === daten.bis) {
+      text += `, am ${App.datum(daten.von)}`;
+    } else {
+      const von = daten.von.slice(0, 4) === daten.bis.slice(0, 4) ? App.datum(daten.von).slice(0, 6) : App.datum(daten.von);
+      text += `, ${von} bis ${App.datum(daten.bis)}`;
+    }
+    return text;
+  }
 
   // gibt das erste fehlerhafte Feld zurück oder null
   function pruefen(anlass) {

@@ -11,9 +11,9 @@
   };
   document.getElementById('untertitel').textContent = UNTERTITEL[benutzer.rolle];
 
-  // älteste zuerst, damit nichts liegen bleibt
+  // neueste zuerst, wie im Wireframe
   const antraege = Daten.offeneFuer(benutzer)
-    .sort((a, b) => a.erstellt.localeCompare(b.erstellt));
+    .sort((a, b) => b.erstellt.localeCompare(a.erstellt));
 
   const ziel = document.getElementById('liste');
 
