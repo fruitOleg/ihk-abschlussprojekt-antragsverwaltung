@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup Antragsverwaltung</title>
+<style>
+@page {
+  size: A4 landscape;
+  margin: 10mm;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #1c2230;
+  background: #fff;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+p {
+  margin: 0;
+}
+
+/* ---------- Dokument ---------- */
+
+.seite {
+  max-width: 1040px;
+  margin: 0 auto 48px;
+  padding: 0 16px;
+}
+
+@media print {
+  .seite {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    break-after: page;
+    page-break-after: always;
+  }
+  .seite:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+}
+
+.seite > h2 {
+  margin: 0 0 10px;
+  padding-bottom: 4px;
+  font-size: 17px;
+  border-bottom: 2px solid #1f5c8b;
+}
+
+.notiz {
+  margin-top: 8px;
+  font-size: 12.5px;
+  color: #5a6272;
+}
+
+/* ---------- Browserfenster ---------- */
+
+.fenster {
+  overflow: hidden;
+  border: 1px solid #c3c9d1;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(16, 24, 40, 0.08);
+}
+
+.fenster__leiste {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 12px;
+  background: #e8ebef;
+  border-bottom: 1px solid #d8dce2;
+}
+
+.fenster__punkte {
+  display: flex;
+  gap: 6px;
+}
+
+.fenster__punkte i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #c3c9d1;
+}
+
+.fenster__adresse {
+  flex: 1;
+  max-width: 460px;
+  padding: 2px 10px;
+  font-size: 12px;
+  color: #5a6272;
+  background: #fff;
+  border-radius: 999px;
+}
+
+/* ---------- Anwendung (entspricht code/app/public/css/style.css) ---------- */
+
+.app {
+  position: relative;
+  min-height: 470px;
+  background: #f3f4f6;
+}
+
+.kopf {
+  background: #fff;
+  border-bottom: 1px solid #d8dce2;
+}
+
+.kopf__innen {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 8px 20px;
+}
+
+.kopf__marke {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.kopf__nav {
+  display: flex;
+  gap: 4px;
+}
+
+.kopf__nav span {
+  padding: 5px 10px;
+  font-weight: 600;
+  color: #5a6272;
+  border-radius: 6px;
+}
+
+.kopf__nav .aktiv {
+  color: #174669;
+  background: #e6eef5;
+}
+
+.kopf__benutzer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  color: #5a6272;
+}
+
+.inhalt {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px 20px 22px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 21px;
+  line-height: 1.25;
+}
+
+.leise {
+  color: #5a6272;
+}
+
+.zurueck {
+  font-weight: 600;
+  color: #1f5c8b;
+}
+
+.karte {
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #d8dce2;
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.06);
+}
+
+.legende {
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.raster {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 18px;
+}
+
+.feld {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.feld--breit {
+  grid-column: 1 / -1;
+}
+
+.feld label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.eingabe {
+  min-height: 34px;
+  padding: 6px 9px;
+  background: #fff;
+  border: 1px solid #c3c9d1;
+  border-radius: 6px;
+}
+
+.eingabe--auswahl {
+  display: flex;
+  justify-content: space-between;
+}
+
+.eingabe--auswahl::after {
+  content: "\25BE";
+  color: #5a6272;
+}
+
+.eingabe--datei {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px;
+}
+
+.eingabe--datei b {
+  padding: 2px 10px;
+  font-weight: 400;
+  background: #f3f4f6;
+  border: 1px solid #c3c9d1;
+  border-radius: 4px;
+}
+
+.hilfe {
+  font-size: 12px;
+  color: #5a6272;
+}
+
+.knopf {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #fff;
+  background: #1f5c8b;
+  border: 1px solid #1f5c8b;
+  border-radius: 6px;
+}
+
+.knopf--zweit {
+  color: #1c2230;
+  background: #fff;
+  border-color: #d8dce2;
+}
+
+.knopf--gefahr {
+  background: #b42318;
+  border-color: #b42318;
+}
+
+.knopf--gefahr-zweit {
+  color: #b42318;
+  background: #fff;
+  border-color: #e7b4ae;
+}
+
+.knopf--leise {
+  color: #5a6272;
+  background: transparent;
+  border-color: transparent;
+}
+
+.knopf--klein {
+  padding: 3px 10px;
+  font-size: 13px;
+}
+
+.knopf--voll {
+  width: 100%;
+}
+
+.knopfzeile {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.knopfzeile--rechts {
+  justify-content: flex-end;
+}
+
+.tabelle-rahmen {
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #d8dce2;
+  border-radius: 6px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+th,
+td {
+  padding: 7px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e8ebef;
+}
+
+tr:last-child th,
+tr:last-child td {
+  border-bottom: 0;
+}
+
+thead th {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #5a6272;
+  background: #f7f8fa;
+}
+
+.link {
+  color: #1f5c8b;
+  text-decoration: underline;
+}
+
+.rechts {
+  text-align: right;
+}
+
+tr.gewaehlt {
+  background: #e6eef5;
+}
+
+.angaben th {
+  width: 32%;
+  font-weight: 400;
+  color: #5a6272;
+  background: #fafbfc;
+}
+
+.status {
+  display: inline-block;
+  padding: 1px 9px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  border-radius: 999px;
+}
+
+.status--eingereicht {
+  color: #174669;
+  background: #e6eef5;
+}
+
+tr.gewaehlt .status--eingereicht {
+  background: #fff;
+}
+
+.status--abgezeichnet {
+  color: #875800;
+  background: #fbf0d9;
+}
+
+.status--genehmigt {
+  color: #25734a;
+  background: #e3f2e9;
+}
+
+.stand {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  list-style: none;
+  border: 1px solid #d8dce2;
+  border-radius: 6px;
+}
+
+.stand li {
+  padding: 9px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  border-right: 1px solid #d8dce2;
+}
+
+.stand li:last-child {
+  border-right: 0;
+}
+
+.stand small {
+  display: block;
+  font-weight: 400;
+  color: #5a6272;
+}
+
+.stand .erledigt {
+  color: #174669;
+  background: #e6eef5;
+}
+
+.hinweis {
+  padding: 9px 14px;
+  font-weight: 600;
+  color: #25734a;
+  background: #e3f2e9;
+  border: 1px solid #b9dcc7;
+  border-radius: 6px;
+}
+
+/* Login */
+.anmeldung {
+  display: grid;
+  place-items: center;
+  min-height: 470px;
+  padding: 24px;
+}
+
+.anmeldung .karte {
+  width: 380px;
+  padding: 22px;
+}
+
+.anmeldung .feld {
+  margin-top: 14px;
+}
+
+/* Pop-up über abgedunkelter Seite */
+.abgedunkelt {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  background: rgba(16, 24, 40, 0.45);
+}
+
+.dialog {
+  width: 380px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 20px 50px rgba(16, 24, 40, 0.25);
+}
+
+.dialog h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+}
+
+.dialog p {
+  color: #5a6272;
+}
+
+.dialog .knopfzeile {
+  margin-top: 20px;
+}
+
+.pfeil {
+  font-size: 26px;
+  color: #fff;
+}
+</style>
+</head>
+<body>
+
+
+<div class="seite">
+<h2>1. Login</h2>
+<div class="fenster">
+  <div class="fenster__leiste"><span class="fenster__punkte"><i></i><i></i><i></i></span><span class="fenster__adresse">127.0.0.1:8000/index.php</span></div>
+  <div class="app">
+    <div class="anmeldung">
+      <div class="karte">
+        <h1>Antragsverwaltung</h1>
+        <div class="feld"><label>Benutzername</label><div class="eingabe">keller</div></div>
+        <div class="feld"><label>Passwort</label><div class="eingabe">••••••••••</div></div>
+        <div class="knopfzeile"><span class="knopf knopf--voll">Anmelden</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="notiz">Nach der Anmeldung gelangt der Lehrer zu „Meine Anträge“, die Leitungen zu „Anträge“.</p>
+</div>
+
+
+<div class="seite">
+<h2>2. Antrag stellen: Anlass auswählen und Formular ausfüllen</h2>
+<div class="fenster">
+  <div class="fenster__leiste"><span class="fenster__punkte"><i></i><i></i><i></i></span><span class="fenster__adresse">127.0.0.1:8000/antrag-neu.php?anlass=klassenfahrt</span></div>
+  <div class="app">
+    <div class="kopf"><div class="kopf__innen">
+      <span class="kopf__marke">Antragsverwaltung</span>
+      <span class="kopf__nav"><span>Meine Anträge</span><span class="aktiv">Antrag stellen</span></span>
+      <span class="kopf__benutzer">M. Keller (Lehrer) <span class="knopf knopf--leise knopf--klein">Abmelden</span></span>
+    </div></div>
+    <div class="inhalt">
+      <h1>Antrag stellen</h1>
+      <div class="karte">
+        <div class="legende">1. Anlass</div>
+        <div class="raster">
+          <div class="feld"><label>Anlass</label><div class="eingabe eingabe--auswahl">Klassenfahrt</div></div>
+        </div>
+      </div>
+      <div class="karte">
+        <div class="legende">2. Formular zum gewählten Anlass</div>
+        <div class="raster">
+          <div class="feld"><label>Klasse</label><div class="eingabe">10b</div></div>
+          <div class="feld"><label>Ziel</label><div class="eingabe">Weimar</div></div>
+          <div class="feld"><label>Von</label><div class="eingabe">12.05.2026</div></div>
+          <div class="feld"><label>Bis</label><div class="eingabe">15.05.2026</div></div>
+          <div class="feld"><label>Begleitperson</label><div class="eingabe">R. Ahmadi</div></div>
+          <div class="feld"><label>Anlage (optional)</label><div class="eingabe eingabe--datei"><b>Datei auswählen</b>Programm_Weimar.pdf</div><span class="hilfe">PDF, JPG oder PNG, höchstens 5 MB</span></div>
+        </div>
+        <div class="knopfzeile"><span class="knopf">Antrag absenden</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="notiz">Nach Auswahl des Anlasses erscheinen die passenden Felder. Fehlende oder ungültige Angaben werden rot unter dem Feld gemeldet.</p>
+</div>
+
+
+<div class="seite">
+<h2>3. Absenden bestätigen</h2>
+<div class="fenster">
+  <div class="fenster__leiste"><span class="fenster__punkte"><i></i><i></i><i></i></span><span class="fenster__adresse">127.0.0.1:8000/antrag-neu.php?anlass=klassenfahrt</span></div>
+  <div class="app">
+    <div class="kopf"><div class="kopf__innen">
+      <span class="kopf__marke">Antragsverwaltung</span>
+      <span class="kopf__nav"><span>Meine Anträge</span><span class="aktiv">Antrag stellen</span></span>
+      <span class="kopf__benutzer">M. Keller (Lehrer) <span class="knopf knopf--leise knopf--klein">Abmelden</span></span>
+    </div></div>
+    <div class="inhalt">
+      <h1>Antrag stellen</h1>
+      <div class="karte">
+        <div class="legende">1. Anlass</div>
+        <div class="raster">
+          <div class="feld"><label>Anlass</label><div class="eingabe eingabe--auswahl">Klassenfahrt</div></div>
+        </div>
+      </div>
+      <div class="karte">
+        <div class="legende">2. Formular zum gewählten Anlass</div>
+        <div class="raster">
+          <div class="feld"><label>Klasse</label><div class="eingabe">10b</div></div>
+          <div class="feld"><label>Ziel</label><div class="eingabe">Weimar</div></div>
+          <div class="feld"><label>Von</label><div class="eingabe">12.05.2026</div></div>
+          <div class="feld"><label>Bis</label><div class="eingabe">15.05.2026</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="abgedunkelt">
+      <div class="dialog">
+        <h3>Antrag absenden</h3>
+        <p>Ihr Antrag „Klassenfahrt“ wird an den Abteilungsleiter weitergeleitet. Nach dem Absenden ist keine Änderung mehr möglich.</p>
+        <div class="knopfzeile knopfzeile--rechts"><span class="knopf knopf--zweit">Zurück</span><span class="knopf">Absenden</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="notiz">Beim Absenden wird ein Log-Eintrag erstellt und der Antrag erscheint beim Abteilungsleiter.</p>
+</div>
+
+
+<div class="seite">
+<h2>4. Anträge beim Abteilungsleiter</h2>
+<div class="fenster">
+  <div class="fenster__leiste"><span class="fenster__punkte"><i></i><i></i><i></i></span><span class="fenster__adresse">127.0.0.1:8000/eingang.php</span></div>
+  <div class="app">
+    <div class="kopf"><div class="kopf__innen">
+      <span class="kopf__marke">Antragsverwaltung</span>
+      <span class="kopf__nav"><span class="aktiv">Anträge</span></span>
+      <span class="kopf__benutzer">S. Vogt (Abteilungsleiter) <span class="knopf knopf--leise knopf--klein">Abmelden</span></span>
+    </div></div>
+    <div class="inhalt">
+      <div>
+        <h1>Anträge</h1>
+        <p class="leise">Eingereichte Anträge, die Sie abzeichnen.</p>
+      </div>
+      <div class="tabelle-rahmen">
+        <table>
+          <thead><tr><th>Nr.</th><th>Anlass</th><th>Antragsteller</th><th>Datum</th><th>Status</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>A-241</td><td>Klassenfahrt</td><td>M. Keller</td><td>14.09.2026</td><td><span class="status status--eingereicht">eingereicht</span></td><td class="rechts"><span class="knopf knopf--klein">Öffnen</span></td></tr>
+            <tr><td>A-240</td><td>Exkursion</td><td>P. Brandt</td><td>13.09.2026</td><td><span class="status status--eingereicht">eingereicht</span></td><td class="rechts"><span class="knopf knopf--klein">Öffnen</span></td></tr>
+            <tr><td>A-238</td><td>Fortbildung</td><td>P. Brandt</td><td>11.09.2026</td><td><span class="status status--eingereicht">eingereicht</span></td><td class="rechts"><span class="knopf knopf--klein">Öffnen</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="notiz">Jede Leitung sieht nur die Anträge, die gerade bei ihr liegen.</p>
+</div>
+
+
+<div class="seite">
+<h2>5. Antrag abzeichnen (Abteilungsleiter)</h2>
+<div class="fenster">
+  <div class="fenster__leiste"><span class="fenster__punkte"><i></i><i></i><i></i></span><span class="fenster__adresse">127.0.0.1:8000/antrag.php?id=241</span></div>
+  <div class="app">
+    <div class="kopf"><div class="kopf__innen">
+      <span class="kopf__marke">Antragsverwaltung</span>
+      <span class="kopf__nav"><span class="aktiv">Anträge</span></span>
+      <span class="kopf__benutzer">S. Vogt (Abteilungsleiter) <span class="knopf knopf--leise knopf--klein">Abmelden</span></span>
+    </div></div>
+    <div class="inhalt">
+      <p class="zurueck">← Zurück zu den Anträgen</p>
+      <h1>Antrag A-241, Klassenfahrt</h1>
+      <div class="karte">
+        <div class="tabelle-rahmen">
+          <table class="angaben">
+            <tr><th>Antragsteller</th><td>M. Keller</td></tr>
+            <tr><th>Klasse</th><td>10b</td></tr>
+            <tr><th>Ziel</th><td>Weimar</td></tr>
+            <tr><th>Zeitraum</th><td>12.05.2026 bis 15.05.2026</td></tr>
+            <tr><th>Begleitperson</th><td>R. Ahmadi</td></tr>
+            <tr><th>Anlage</th><td><span class="link">Programm_Weimar.pdf</span></td></tr>
+          </table>
+        </div>
+        <div class="knopfzeile"><span class="knopf">Abzeichnen</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="notiz">Nach Klick auf „Abzeichnen“ folgt die zweifache Abfrage (Schritt 6).</p>
+</div>
+
+
+<div class="seite">
+<h2>6. Zweifache Abfrage beim Abzeichnen</h2>
+<div class="fenster">
+  <div class="fenster__leiste"><span class="fenster__punkte"><i></i><i></i><i></i></span><span class="fenster__adresse">127.0.0.1:8000/antrag.php?id=241</span></div>
+  <div class="app">
+    <div class="kopf"><div class="kopf__innen">
+      <span class="kopf__marke">Antragsverwaltung</span>
+      <span class="kopf__nav"><span class="aktiv">Anträge</span></span>
+      <span class="kopf__benutzer">S. Vogt (Abteilungsleiter) <span class="knopf knopf--leise knopf--klein">Abmelden</span></span>
+    </div></div>
+    <div class="inhalt">
+      <p class="zurueck">← Zurück zu den Anträgen</p>
+      <h1>Antrag A-241, Klassenfahrt</h1>
+      <div class="karte">
+        <div class="tabelle-rahmen">
+          <table class="angaben">
+            <tr><th>Antragsteller</th><td>M. Keller</td></tr>
+            <tr><th>Klasse</th><td>10b</td></tr>
+            <tr><th>Ziel</th><td>Weimar</td></tr>
+            <tr><th>Zeitraum</th><td>12.05.2026 bis 15.05.2026</td></tr>
+            <tr><th>Begleitperson</th><td>R. Ahmadi</td></tr>
+            <tr><th>Anlage</th><td><span class="link">Programm_Weimar.pdf</span></td></tr>
+          </table>
+        </div>
+        <div class="knopfzeile"><span class="knopf">Abzeichnen</span></div>
+      </div>
+    </div>
+    <div class="abgedunkelt">
+      <div class="dialog">
+        <h3>Abzeichnen (1 von 2)</h3>
+        <p>Möchten Sie den Antrag A-241 abzeichnen?</p>
+        <div class="knopfzeile knopfzeile--rechts"><span class="knopf knopf--zweit">Abbrechen</span><span class="knopf">Weiter</span></div>
+      </div>
+      <span class="pfeil">→</span>
+      <div class="dialog">
+        <h3>Abzeichnen (2 von 2)</h3>
+        <p>Bitte bestätigen Sie: Antrag A-241 wird verbindlich abgezeichnet.</p>
+        <div class="knopfzeile knopfzeile--rechts"><span class="knopf knopf--zweit">Abbrechen</span><span class="knopf">Bestätigen</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="notiz">Die zweite Abfrage erscheint erst nach „Weiter“. Nach „Bestätigen“ wird ein Log-Eintrag erstellt und der Antrag erscheint beim stellvertretenden Schulleiter.</p>
+</div>
+
+
+<div class="seite">
+<h2>7. Antrag abzeichnen (stellvertretender Schulleiter)</h2>
+<div class="fenster">
+  <div class="fenster__leiste"><span class="fenster__punkte"><i></i><i></i><i></i></span><span class="fenster__adresse">127.0.0.1:8000/antrag.php?id=241</span></div>
+  <div class="app">
+    <div class="kopf"><div class="kopf__innen">
+      <span class="kopf__marke">Antragsverwaltung</span>
+      <span class="kopf__nav"><span class="aktiv">Anträge</span></span>
+      <span class="kopf__benutzer">K. Roth (stellv. Schulleiter) <span class="knopf knopf--leise knopf--klein">Abmelden</span></span>
+    </div></div>
+    <div class="inhalt">
+      <div class="tabelle-rahmen">
+        <table>
+          <thead><tr><th>Nr.</th><th>Anlass</th><th>Antragsteller</th><th>Datum</th><th>Status</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>A-241</td><td>Klassenfahrt</td><td>M. Keller</td><td>14.09.2026</td><td><span class="status status--abgezeichnet">abgezeichnet vom AL</span></td><td class="rechts"><span class="knopf knopf--klein">Öffnen</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h1>Antrag A-241, Klassenfahrt</h1>
+      <div class="karte">
+        <div class="tabelle-rahmen">
+          <table class="angaben">
+            <tr><th>Antragsteller</th><td>M. Keller</td></tr>
+            <tr><th>Klasse</th><td>10b</td></tr>
+            <tr><th>Ziel</th><td>Weimar</td></tr>
+            <tr><th>Zeitraum</th><td>12.05.2026 bis 15.05.2026</td></tr>
+            <tr><th>Begleitperson</th><td>R. Ahmadi</td></tr>
+            <tr><th>Anlage</th><td><span class="link">Programm_Weimar.pdf</span></td></tr>
+          </table>
+        </div>
+        <div class="knopfzeile"><span class="knopf">Abzeichnen</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="notiz">Zweifache Abfrage wie in Schritt 6. Danach wird ein Log-Eintrag erstellt und der Antrag erscheint beim Schulleiter.</p>
+</div>
+
+
+<div class="seite">
+<h2>8. Antrag genehmigen (Schulleiter)</h2>
+<div class="fenster">
+  <div class="fenster__leiste"><span class="fenster__punkte"><i></i><i></i><i></i></span><span class="fenster__adresse">127.0.0.1:8000/antrag.php?id=241</span></div>
+  <div class="app">
+    <div class="kopf"><div class="kopf__innen">
+      <span class="kopf__marke">Antragsverwaltung</span>
+      <span class="kopf__nav"><span class="aktiv">Anträge</span></span>
+      <span class="kopf__benutzer">Dr. Wenzel (Schulleiter) <span class="knopf knopf--leise knopf--klein">Abmelden</span></span>
+    </div></div>
+    <div class="inhalt">
+      <div class="tabelle-rahmen">
+        <table>
+          <thead><tr><th>Nr.</th><th>Anlass</th><th>Antragsteller</th><th>Datum</th><th>Status</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>A-241</td><td>Klassenfahrt</td><td>M. Keller</td><td>14.09.2026</td><td><span class="status status--abgezeichnet">abgezeichnet vom stellv. Schulleiter</span></td><td class="rechts"><span class="knopf knopf--klein">Öffnen</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h1>Antrag A-241, Klassenfahrt</h1>
+      <div class="karte">
+        <div class="tabelle-rahmen">
+          <table class="angaben">
+            <tr><th>Antragsteller</th><td>M. Keller</td></tr>
+            <tr><th>Klasse</th><td>10b</td></tr>
+            <tr><th>Ziel</th><td>Weimar</td></tr>
+            <tr><th>Zeitraum</th><td>12.05.2026 bis 15.05.2026</td></tr>
+            <tr><th>Begleitperson</th><td>R. Ahmadi</td></tr>
+            <tr><th>Anlage</th><td><span class="link">Programm_Weimar.pdf</span></td></tr>
+          </table>
+        </div>
+        <div class="knopfzeile"><span class="knopf">Genehmigen</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="notiz">Beim Genehmigen gibt es keine Abfrage. Es wird ein Log-Eintrag erstellt.</p>
+</div>
+
+
+<div class="seite">
+<h2>9. Bearbeitungsstand für den Antragsteller</h2>
+<div class="fenster">
+  <div class="fenster__leiste"><span class="fenster__punkte"><i></i><i></i><i></i></span><span class="fenster__adresse">127.0.0.1:8000/meine-antraege.php?id=241</span></div>
+  <div class="app">
+    <div class="kopf"><div class="kopf__innen">
+      <span class="kopf__marke">Antragsverwaltung</span>
+      <span class="kopf__nav"><span class="aktiv">Meine Anträge</span><span>Antrag stellen</span></span>
+      <span class="kopf__benutzer">M. Keller (Lehrer) <span class="knopf knopf--leise knopf--klein">Abmelden</span></span>
+    </div></div>
+    <div class="inhalt">
+      <h1>Meine Anträge</h1>
+      <div class="tabelle-rahmen">
+        <table>
+          <thead><tr><th>Nr.</th><th>Anlass</th><th>Eingereicht</th><th>Stand</th></tr></thead>
+          <tbody>
+            <tr class="gewaehlt"><td><span class="link">A-241</span></td><td>Klassenfahrt</td><td>14.09.2026</td><td><span class="status status--abgezeichnet">abgezeichnet vom stellv. Schulleiter</span></td></tr>
+            <tr><td><span class="link">A-233</span></td><td>Exkursion</td><td>02.09.2026</td><td><span class="status status--genehmigt">genehmigt vom Schulleiter</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="karte">
+        <div class="legende">Stand zu A-241</div>
+        <ol class="stand">
+          <li class="erledigt">Eingereicht<small>14.09.2026</small></li>
+          <li class="erledigt">Abgezeichnet vom AL<small>14.09.2026</small></li>
+          <li class="erledigt">Abgezeichnet vom stellv. Schulleiter<small>15.09.2026</small></li>
+          <li>Genehmigt vom Schulleiter<small>offen</small></li>
+        </ol>
+        <div class="knopfzeile"><span class="knopf knopf--gefahr-zweit">Antrag löschen</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="notiz">Status-Farben: blau = eingereicht, gelb = in Bearbeitung, grün = genehmigt. „Antrag löschen“ gibt es nur, solange der Antrag nicht genehmigt ist.</p>
+</div>
+
+
+<div class="seite">
+<h2>10. Antrag löschen</h2>
+<div class="fenster">
+  <div class="fenster__leiste"><span class="fenster__punkte"><i></i><i></i><i></i></span><span class="fenster__adresse">127.0.0.1:8000/meine-antraege.php?id=241</span></div>
+  <div class="app">
+    <div class="kopf"><div class="kopf__innen">
+      <span class="kopf__marke">Antragsverwaltung</span>
+      <span class="kopf__nav"><span class="aktiv">Meine Anträge</span><span>Antrag stellen</span></span>
+      <span class="kopf__benutzer">M. Keller (Lehrer) <span class="knopf knopf--leise knopf--klein">Abmelden</span></span>
+    </div></div>
+    <div class="inhalt">
+      <h1>Meine Anträge</h1>
+      <div class="tabelle-rahmen">
+        <table>
+          <thead><tr><th>Nr.</th><th>Anlass</th><th>Eingereicht</th><th>Stand</th></tr></thead>
+          <tbody>
+            <tr class="gewaehlt"><td><span class="link">A-241</span></td><td>Klassenfahrt</td><td>14.09.2026</td><td><span class="status status--abgezeichnet">abgezeichnet vom stellv. Schulleiter</span></td></tr>
+            <tr><td><span class="link">A-233</span></td><td>Exkursion</td><td>02.09.2026</td><td><span class="status status--genehmigt">genehmigt vom Schulleiter</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="karte">
+        <div class="legende">Stand zu A-241</div>
+        <ol class="stand">
+          <li class="erledigt">Eingereicht<small>14.09.2026</small></li>
+          <li class="erledigt">Abgezeichnet vom AL<small>14.09.2026</small></li>
+          <li class="erledigt">Abgezeichnet vom stellv. Schulleiter<small>15.09.2026</small></li>
+          <li>Genehmigt vom Schulleiter<small>offen</small></li>
+        </ol>
+        <div class="knopfzeile"><span class="knopf knopf--gefahr-zweit">Antrag löschen</span></div>
+      </div>
+    </div>
+    <div class="abgedunkelt">
+      <div class="dialog">
+        <h3>Antrag löschen</h3>
+        <p>Antrag A-241 wird gelöscht und nicht weiter bearbeitet. Das kann nicht rückgängig gemacht werden.</p>
+        <div class="knopfzeile knopfzeile--rechts"><span class="knopf knopf--zweit">Zurück</span><span class="knopf knopf--gefahr">Löschen</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="notiz">Beim Löschen wird ein Log-Eintrag erstellt. Der Antrag verschwindet aus allen Listen, danach erscheint oben die Meldung „Antrag A-241 wurde gelöscht.“</p>
+</div>
+
+</body>
+</html>

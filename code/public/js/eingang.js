@@ -47,7 +47,7 @@
       <td>${App.esc(person.name)}</td>
       <td class="zahl">${App.datum(antrag.erstellt)}</td>
       <td>${App.statusMarke(antrag.status)}</td>
-      <td class="rechts"><a class="knopf knopf--zweit knopf--klein" href="antrag.html?id=${antrag.id}">Öffnen</a></td>
+      <td class="rechts"><a class="knopf knopf--klein" href="antrag.html?id=${antrag.id}">Öffnen</a></td>
     </tr>`;
   }
 })();

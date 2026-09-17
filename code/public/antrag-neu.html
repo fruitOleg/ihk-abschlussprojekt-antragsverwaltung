@@ -13,24 +13,27 @@
 <main class="inhalt" data-hinweise>
   <h1>Antrag stellen</h1>
 
-  <form id="antragFormular" class="karte stapel" novalidate>
-    <fieldset>
-      <legend>1. Anlass</legend>
-      <div class="formular-raster">
-        <div class="feld">
-          <label for="anlass">Anlass</label>
-          <select id="anlass" name="anlass"></select>
+  <form id="antragFormular" class="stapel" novalidate>
+    <div class="karte">
+      <fieldset>
+        <legend>1. Anlass</legend>
+        <div class="formular-raster">
+          <div class="feld">
+            <label for="anlass">Anlass</label>
+            <select id="anlass" name="anlass"></select>
+          </div>
         </div>
+      </fieldset>
+    </div>
+
+    <div id="angaben" class="karte" hidden>
+      <fieldset>
+        <legend>2. Formular zum gewählten Anlass</legend>
+        <div id="felder" class="formular-raster"></div>
+      </fieldset>
+      <div class="knopfzeile knopfzeile--links">
+        <button class="knopf" type="submit">Antrag absenden</button>
       </div>
-    </fieldset>
-
-    <fieldset id="angaben" hidden>
-      <legend>2. Formular zum gewählten Anlass</legend>
-      <div id="felder" class="formular-raster"></div>
-    </fieldset>
-
-    <div class="knopfzeile knopfzeile--links">
-      <button class="knopf" type="submit">Antrag absenden</button>
     </div>
   </form>
 </main>
