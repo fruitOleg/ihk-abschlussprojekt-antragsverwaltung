@@ -11,28 +11,54 @@
 <header id="kopf" class="kopf"></header>
 
 <main class="inhalt" data-hinweise>
-  <h1>Antrag stellen</h1>
+  <div>
+    <h1 id="titel">Antrag stellen</h1>
+    <p class="leise">Änderung der Unterrichtsorganisation</p>
+  </div>
+
+  <div id="korrektur" hidden></div>
 
   <form id="antragFormular" class="stapel" novalidate>
     <div class="karte">
       <fieldset>
-        <legend>1. Anlass</legend>
+        <legend>1. Abteilung und Anlass</legend>
         <div class="formular-raster">
           <div class="feld">
-            <label for="anlass">Anlass</label>
+            <span class="feld__titel">Antragsteller</span>
+            <p id="antragsteller"></p>
+          </div>
+          <div class="feld">
+            <span class="feld__titel">Datum</span>
+            <p id="heute"></p>
+          </div>
+          <div class="feld feld--breit">
+            <span class="feld__titel" id="abteilung-titel">Abteilung</span>
+            <div class="auswahlreihe" role="radiogroup" aria-labelledby="abteilung-titel" id="abteilungen"></div>
+          </div>
+          <div class="feld feld--breit">
+            <label for="anlass">Anlass (Unterrichtsorganisation bei Abwesenheit)</label>
             <select id="anlass" name="anlass"></select>
           </div>
         </div>
       </fieldset>
     </div>
 
-    <div id="angaben" class="karte" hidden>
+    <div id="abschnitte" class="stapel"></div>
+
+    <div id="abschluss" class="karte" hidden>
       <fieldset>
-        <legend>2. Formular zum gewählten Anlass</legend>
-        <div id="felder" class="formular-raster"></div>
+        <legend id="abschluss-titel">Anlage</legend>
+        <div class="formular-raster">
+          <div class="feld">
+            <label for="feld-anlage">Anlage (optional)</label>
+            <input id="feld-anlage" name="anlage" type="file" accept=".pdf,.jpg,.jpeg,.png" aria-describedby="feld-anlage-hilfe">
+            <small class="feld__hilfe" id="feld-anlage-hilfe">z. B. Einladungsschreiben; PDF, JPG oder PNG, höchstens 5 MB</small>
+          </div>
+        </div>
       </fieldset>
       <div class="knopfzeile knopfzeile--links">
         <button class="knopf" type="submit">Antrag absenden</button>
+        <button class="knopf knopf--zweit" type="button" id="entwurf">Als Entwurf speichern</button>
       </div>
     </div>
   </form>

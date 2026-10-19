@@ -1,53 +1,22 @@
 (() => {
   'use strict';
 
-  const benutzer = App.seiteSchuetzen(['al', 'ssl', 'sl']);
+  const benutzer = App.seiteSchuetzen(['al', 'ssl', 'sl', 'sek']);
   if (!benutzer) return;
 
-  const UNTERTITEL = {
-    al: 'Eingereichte Anträge, die Sie abzeichnen.',
-    ssl: 'Vom Abteilungsleiter abgezeichnete Anträge, die Sie abzeichnen.',
-    sl: 'Vom stellvertretenden Schulleiter abgezeichnete Anträge, die Sie genehmigen.'
-  };
-  document.getElementById('untertitel').textContent = UNTERTITEL[benutzer.rolle];
+  // Beschreibung passend zu den Rollen des Benutzers
+  const teile = [];
+  if (Daten.hatRolle(benutzer, 'al')) teile.push(`als Abteilungsleiter (${benutzer.abteilungen.join(', ')}): Anträge prüfen, abzeichnen, zurückweisen oder umleiten`);
+  if (Daten.istSchulleitung(benutzer)) teile.push('als Schulleitung: abzeichnen bzw. genehmigen oder ablehnen – stellv. SL und SL vertreten sich gegenseitig');
+  if (Daten.hatRolle(benutzer, 'sek')) teile.push('als Sekretariat: alle abgeschlossenen Vorgänge abzeichnen');
+  document.getElementById('untertitel').textContent = `Anträge, die auf Sie warten – ${teile.join('; ')}.`;
 
-  // neueste zuerst, wie im Wireframe
-  const antraege = Daten.offeneFuer(benutzer)
-    .sort((a, b) => b.erstellt.localeCompare(a.erstellt));
+  // älteste zuerst, damit nichts liegen bleibt
+  const antraege = Daten.aufgabenFuer(benutzer)
+    .sort((a, b) => (a.eingereicht || a.erstellt).localeCompare(b.eingereicht || b.erstellt));
 
   const ziel = document.getElementById('liste');
-
-  if (!antraege.length) {
-    ziel.innerHTML = '<div class="karte"><p class="leer">Zurzeit liegen keine Anträge vor.</p></div>';
-    return;
-  }
-
-  ziel.innerHTML = `
-    <div class="tabelle-rahmen">
-      <table class="tabelle">
-        <thead>
-          <tr>
-            <th scope="col">Nr.</th>
-            <th scope="col">Anlass</th>
-            <th scope="col">Antragsteller</th>
-            <th scope="col">Datum</th>
-            <th scope="col">Status</th>
-            <th scope="col"><span class="unsichtbar">Aktion</span></th>
-          </tr>
-        </thead>
-        <tbody>${antraege.map(zeile).join('')}</tbody>
-      </table>
-    </div>`;
-
-  function zeile(antrag) {
-    const person = Daten.benutzerNachId(antrag.antragstellerId);
-    return `<tr>
-      <td class="zahl">${antrag.id}</td>
-      <td>${Daten.ANLAESSE[antrag.anlass].titel}</td>
-      <td>${App.esc(person.name)}</td>
-      <td class="zahl">${App.datum(antrag.erstellt)}</td>
-      <td>${App.statusMarke(antrag.status)}</td>
-      <td class="rechts"><a class="knopf knopf--klein" href="antrag.html?id=${antrag.id}">Öffnen</a></td>
-    </tr>`;
-  }
+  ziel.innerHTML = antraege.length
+    ? Anzeige.liste(antraege, { aufgabe: true, knopf: 'Bearbeiten' })
+    : '<div class="karte"><p class="leer">Zurzeit liegen keine Anträge zur Bearbeitung vor. <a href="uebersicht.html">Alle Anträge ansehen</a></p></div>';
 })();

@@ -13,11 +13,14 @@
   const fehler = document.getElementById('anmeldeFehler');
   const demo = document.getElementById('demoZugaenge');
 
-  demo.innerHTML = Daten.BENUTZER.map(b => `<tr>
-      <td><button type="button" class="link" data-login="${b.login}">${b.login}</button></td>
-      <td>${App.esc(b.name)}</td>
-      <td>${Daten.ROLLEN[b.rolle]}</td>
-    </tr>`).join('');
+  function demoAufbauen() {
+    demo.innerHTML = Daten.alleBenutzer().filter(b => b.aktiv).map(b => `<tr>
+        <td><button type="button" class="link" data-login="${b.login}">${b.login}</button></td>
+        <td>${App.esc(b.name)}</td>
+        <td>${App.esc(Daten.rollenText(b))}</td>
+      </tr>`).join('');
+  }
+  demoAufbauen();
 
   demo.addEventListener('click', ereignis => {
     const knopf = ereignis.target.closest('[data-login]');
@@ -32,8 +35,8 @@
     fehler.hidden = true;
 
     const benutzer = Daten.benutzerNachLogin(feldLogin.value);
-    if (!benutzer) {
-      zeigeFehler('Benutzername unbekannt.', feldLogin);
+    if (!benutzer || !benutzer.aktiv) {
+      zeigeFehler(benutzer ? 'Dieses Konto ist deaktiviert.' : 'Benutzername unbekannt.', feldLogin);
       return;
     }
     if (!feldPasswort.value) {
@@ -47,6 +50,7 @@
 
   document.getElementById('zuruecksetzen').addEventListener('click', () => {
     Daten.zuruecksetzen();
+    demoAufbauen();
     App.hinweisZeigen('Die Demodaten wurden zurückgesetzt.');
   });
 

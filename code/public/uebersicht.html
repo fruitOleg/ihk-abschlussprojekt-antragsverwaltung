@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alle Anträge – Antragsverwaltung</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header id="kopf" class="kopf"></header>
+
+<main class="inhalt" data-hinweise>
+  <div>
+    <h1>Alle Anträge</h1>
+    <p id="untertitel" class="leise"></p>
+  </div>
+
+  <form class="filterleiste karte" id="filter" role="search">
+    <div class="feld">
+      <label for="f-status">Status</label>
+      <select id="f-status" name="status"></select>
+    </div>
+    <div class="feld">
+      <label for="f-abteilung">Abteilung</label>
+      <select id="f-abteilung" name="abteilung"></select>
+    </div>
+    <div class="feld">
+      <label for="f-suche">Suche</label>
+      <input id="f-suche" name="suche" type="search" placeholder="Nr., Name, Anlass">
+    </div>
+    <div class="feld">
+      <label for="f-sortierung">Sortierung</label>
+      <select id="f-sortierung" name="sortierung">
+        <option value="neu">Neueste zuerst</option>
+        <option value="alt">Älteste zuerst</option>
+        <option value="nr">Nach Nummer</option>
+        <option value="name">Nach Antragsteller</option>
+        <option value="beginn">Nach Beginn der Abwesenheit</option>
+      </select>
+    </div>
+    <label class="haken" id="ausgeblendet-schalter"><input type="checkbox" id="f-ausgeblendet" name="ausgeblendet"> Ausgeblendete anzeigen</label>
+  </form>
+
+  <div id="liste"></div>
+</main>
+
+<script src="js/daten.js"></script>
+<script src="js/app.js"></script>
+<script src="js/anzeige.js"></script>
+<script src="js/uebersicht.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Benutzer – Antragsverwaltung</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header id="kopf" class="kopf"></header>
+
+<main class="inhalt" data-hinweise>
+  <div class="titelzeile">
+    <div>
+      <h1>Benutzer und Rollen</h1>
+      <p class="leise">Abteilungsleiter, stellv. Schulleiter und Schulleiter sind zugleich Lehrer. Jede Abteilung hat einen oder mehrere Abteilungsleiter.</p>
+    </div>
+    <button type="button" class="knopf" id="neu">Neuer Benutzer</button>
+  </div>
+
+  <div id="liste"></div>
+
+  <form id="formular" class="karte" novalidate hidden>
+    <fieldset>
+      <legend id="formular-titel">Neuer Benutzer</legend>
+      <div class="formular-raster">
+        <div class="feld">
+          <label for="b-login">Benutzername</label>
+          <input id="b-login" name="login" type="text" autocomplete="off">
+        </div>
+        <div class="feld">
+          <label for="b-name">Name</label>
+          <input id="b-name" name="name" type="text" placeholder="z. B. M. Keller">
+        </div>
+        <div class="feld">
+          <label for="b-amt">Amtsbezeichnung <span class="leise">(optional)</span></label>
+          <input id="b-amt" name="amt" type="text" placeholder="z. B. StR, OStR, StD">
+        </div>
+        <div class="feld feld--unten">
+          <label class="haken"><input type="checkbox" id="b-aktiv" name="aktiv" checked> Konto aktiv</label>
+        </div>
+        <div class="feld feld--breit">
+          <span class="feld__titel" id="rollen-titel">Rollen</span>
+          <div class="auswahlreihe" id="rollen" role="group" aria-labelledby="rollen-titel"></div>
+        </div>
+        <div class="feld feld--breit" id="abteilungen-feld" hidden>
+          <span class="feld__titel" id="abteilungen-titel">Abteilungen (als Abteilungsleiter)</span>
+          <div class="auswahlreihe" id="abteilungen" role="group" aria-labelledby="abteilungen-titel"></div>
+        </div>
+      </div>
+      <p class="leise abstand-oben">Das Passwort vergibt im fertigen System die Anmeldung der Schule; im Prototyp wird es nicht geprüft.</p>
+    </fieldset>
+    <div class="knopfzeile knopfzeile--links">
+      <button type="submit" class="knopf">Speichern</button>
+      <button type="button" class="knopf knopf--zweit" id="abbrechen">Abbrechen</button>
+    </div>
+  </form>
+</main>
+
+<script src="js/daten.js"></script>
+<script src="js/app.js"></script>
+<script src="js/benutzer.js"></script>
+</body>
+</html>

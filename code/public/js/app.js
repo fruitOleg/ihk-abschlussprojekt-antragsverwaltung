@@ -8,19 +8,23 @@ const App = (() => {
   const SITZUNG = 'antragsverwaltung-sitzung';
   const HINWEIS = 'antragsverwaltung-hinweis';
 
-  const NAVIGATION = {
-    lehrer: [['meine-antraege.html', 'Meine Anträge'], ['antrag-neu.html', 'Antrag stellen']],
-    al:     [['eingang.html', 'Anträge']],
-    ssl:    [['eingang.html', 'Anträge']],
-    sl:     [['eingang.html', 'Anträge']]
-  };
+  // Menüpunkte und die Rollen, die sie sehen; wer mehrere Rollen hat, sieht alles davon
+  const NAVIGATION = [
+    ['eingang.html',        'Zur Bearbeitung', ['al', 'ssl', 'sl', 'sek']],
+    ['meine-antraege.html', 'Meine Anträge',   ['lehrer']],
+    ['antrag-neu.html',     'Antrag stellen',  ['lehrer']],
+    ['uebersicht.html',     'Alle Anträge',    ['al', 'ssl', 'sl', 'sek']],
+    ['protokoll.html',      'Log & Export',    ['sl']],
+    ['benutzer.html',       'Benutzer',        ['admin']]
+  ];
 
   /* ---------- Sitzung ---------- */
 
   function aktuellerBenutzer() {
     let id = null;
     try { id = sessionStorage.getItem(SITZUNG); } catch (e) { /* kein Sitzungsspeicher */ }
-    return id ? Daten.benutzerNachId(Number(id)) : null;
+    const benutzer = id ? Daten.benutzerNachId(Number(id)) : null;
+    return benutzer && benutzer.aktiv ? benutzer : null;
   }
 
   function anmelden(benutzer) {
@@ -32,45 +36,68 @@ const App = (() => {
     location.href = 'index.html';
   }
 
-  function startseite(benutzer) {
-    return benutzer.rolle === 'lehrer' ? 'meine-antraege.html' : 'eingang.html';
+  function hatEine(benutzer, rollen) {
+    return rollen.some(rolle => Daten.hatRolle(benutzer, rolle));
   }
 
-  // Leitet weiter, wenn niemand angemeldet ist oder die Rolle nicht passt
+  function startseite(benutzer) {
+    if (hatEine(benutzer, ['al', 'ssl', 'sl', 'sek'])) return 'eingang.html';
+    if (Daten.hatRolle(benutzer, 'lehrer')) return 'meine-antraege.html';
+    return 'benutzer.html';
+  }
+
+  // Leitet weiter, wenn niemand angemeldet ist oder keine passende Rolle vorliegt
   function seiteSchuetzen(erlaubteRollen) {
     const benutzer = aktuellerBenutzer();
     if (!benutzer) {
       location.replace('index.html');
       return null;
     }
-    if (!erlaubteRollen.includes(benutzer.rolle)) {
+    if (erlaubteRollen && !hatEine(benutzer, erlaubteRollen)) {
       location.replace(startseite(benutzer));
       return null;
     }
     kopfzeileAufbauen(benutzer);
     gemerktenHinweisZeigen();
+    popupsZeigen(benutzer);
     return benutzer;
   }
 
   function kopfzeileAufbauen(benutzer) {
     const kopf = document.getElementById('kopf');
     const seite = location.pathname.split('/').pop();
-    const links = NAVIGATION[benutzer.rolle].map(([ziel, text]) => {
-      const aktiv = ziel === seite ? ' aria-current="page"' : '';
-      return `<a href="${ziel}"${aktiv}>${text}</a>`;
-    }).join('');
+    const links = NAVIGATION
+      .filter(([, , rollen]) => hatEine(benutzer, rollen))
+      .map(([ziel, text]) => `<a href="${ziel}"${ziel === seite ? ' aria-current="page"' : ''}>${text}</a>`)
+      .join('');
+
+    const ungelesen = Daten.ungeleseneAnzahl(benutzer);
+    const zaehler = ungelesen ? ` <span class="zaehler" aria-label="${ungelesen} ungelesen">${ungelesen}</span>` : '';
 
     kopf.innerHTML = `
       <div class="kopf__innen">
         <a class="kopf__marke" href="${startseite(benutzer)}">Antragsverwaltung</a>
-        <nav class="kopf__nav" aria-label="Hauptnavigation">${links}</nav>
+        <nav class="kopf__nav" aria-label="Hauptnavigation">
+          ${links}
+          <a href="nachrichten.html"${seite === 'nachrichten.html' ? ' aria-current="page"' : ''}>Nachrichten${zaehler}</a>
+        </nav>
         <div class="kopf__benutzer">
-          <span>${esc(benutzer.name)} (${Daten.ROLLEN[benutzer.rolle]})</span>
+          <span title="${esc(Daten.rollenText(benutzer))}">${esc(benutzer.name)}</span>
           <button type="button" class="knopf knopf--leise" id="abmelden">Abmelden</button>
         </div>
       </div>`;
 
     document.getElementById('abmelden').addEventListener('click', abmelden);
+  }
+
+  // wichtige Benachrichtigungen (z. B. Ablehnung durch den SL) erscheinen einmal als Pop-up
+  async function popupsZeigen(benutzer) {
+    const nachrichten = Daten.popupsAbholen(benutzer);
+    if (!nachrichten.length) return;
+    kopfzeileAufbauen(benutzer);
+    for (const n of nachrichten) {
+      await bestaetigen({ titel: 'Neue Benachrichtigung', text: n.text, ja: 'Verstanden', nein: '' });
+    }
   }
 
   /* ---------- Formatierung ---------- */
@@ -81,6 +108,7 @@ const App = (() => {
   }
 
   const DATUM = new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  const UHR = new Intl.DateTimeFormat('de-DE', { hour: '2-digit', minute: '2-digit' });
 
   // nimmt "JJJJ-MM-TT" oder einen vollständigen ISO-Zeitstempel
   function datum(wert) {
@@ -89,12 +117,29 @@ const App = (() => {
     return DATUM.format(d);
   }
 
-  function statusMarke(status) {
-    return `<span class="status status--${status}">${Daten.STATUS[status].text}</span>`;
+  function zeitpunkt(wert) {
+    if (!wert) return '';
+    return `${DATUM.format(new Date(wert))}, ${UHR.format(new Date(wert))}`;
+  }
+
+  function statusMarke(antrag) {
+    return `<span class="status status--${Daten.statusFarbe(antrag)}">${esc(Daten.statusText(antrag))}</span>`;
   }
 
   function parameter(name) {
     return new URLSearchParams(location.search).get(name);
+  }
+
+  // Datei im Browser speichern (Log-Ausgabe, Datensicherung)
+  function herunterladen(dateiname, inhalt, typ) {
+    const url = URL.createObjectURL(new Blob([inhalt], { type: typ }));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = dateiname;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
   /* ---------- Hinweise ---------- */
@@ -121,6 +166,7 @@ const App = (() => {
     box.setAttribute('role', art === 'fehler' ? 'alert' : 'status');
     box.textContent = text;
     ort.prepend(box);
+    box.scrollIntoView({ block: 'nearest' });
   }
 
   /* ---------- Formularfehler ---------- */
@@ -145,8 +191,10 @@ const App = (() => {
 
   /* ---------- Pop-up-Abfrage ---------- */
 
-  // liefert true bei Bestätigung, false bei Abbrechen oder Esc
-  function bestaetigen({ titel, text, ja, nein = 'Abbrechen', gefahr = false }) {
+  // liefert true bei Bestätigung, false bei Abbrechen oder Esc.
+  // Mit "eingabe" (Beschriftung eines Textfelds) wird stattdessen der eingegebene Text geliefert.
+  // nein = '' zeigt nur einen Knopf (reine Information).
+  function bestaetigen({ titel, text, ja, nein = 'Abbrechen', gefahr = false, eingabe = '', pflicht = true }) {
     return new Promise(fertig => {
       const dialog = document.createElement('dialog');
       dialog.className = 'dialog';
@@ -154,25 +202,37 @@ const App = (() => {
         <form method="dialog">
           <h2 class="dialog__titel">${esc(titel)}</h2>
           <p class="dialog__text">${esc(text)}</p>
+          ${eingabe ? `<div class="feld dialog__feld">
+            <label for="dialog-eingabe">${esc(eingabe)}${pflicht ? '' : ' (optional)'}</label>
+            <textarea id="dialog-eingabe" rows="3"${pflicht ? ' required' : ''}></textarea>
+          </div>` : ''}
           <div class="knopfzeile">
-            <button value="nein" class="knopf knopf--zweit">${esc(nein)}</button>
+            ${nein ? `<button value="nein" class="knopf knopf--zweit" formnovalidate>${esc(nein)}</button>` : ''}
             <button value="ja" class="knopf${gefahr ? ' knopf--gefahr' : ''}">${esc(ja)}</button>
           </div>
         </form>`;
       document.body.appendChild(dialog);
       dialog.addEventListener('close', () => {
-        fertig(dialog.returnValue === 'ja');
+        const ok = dialog.returnValue === 'ja';
+        fertig(eingabe ? (ok ? dialog.querySelector('textarea').value.trim() : false) : ok);
         dialog.remove();
       });
       dialog.showModal();
-      dialog.querySelector('button[value="nein"]').focus();
+      dialog.querySelector(nein ? 'button[value="nein"]' : 'button[value="ja"]').focus();
     });
+  }
+
+  // zweifache Abfrage vor verbindlichen Aktionen
+  async function zweifach({ titel, frage, bestaetigung, ja = 'Bestätigen', gefahr = false }) {
+    const erste = await bestaetigen({ titel: `${titel} (1 von 2)`, text: frage, ja: 'Weiter', gefahr });
+    if (!erste) return false;
+    return bestaetigen({ titel: `${titel} (2 von 2)`, text: bestaetigung, ja, gefahr });
   }
 
   return {
     aktuellerBenutzer, anmelden, startseite, seiteSchuetzen,
-    esc, datum, statusMarke, parameter,
+    esc, datum, zeitpunkt, statusMarke, parameter, herunterladen,
     hinweisMerken, hinweisZeigen,
-    fehlerSetzen, fehlerEntfernen, bestaetigen
+    fehlerSetzen, fehlerEntfernen, bestaetigen, zweifach
   };
 })();

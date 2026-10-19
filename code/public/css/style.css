@@ -83,12 +83,12 @@ p {
 }
 
 .kopf__innen {
-  max-width: 1000px;
+  max-width: 1240px;
   margin: 0 auto;
   padding: 0.6rem 1rem;
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
@@ -106,7 +106,7 @@ p {
 }
 
 .kopf__nav a {
-  padding: 0.4rem 0.7rem;
+  padding: 0.4rem 0.55rem;
   font-weight: 600;
   color: var(--text-leise);
   text-decoration: none;
@@ -607,4 +607,238 @@ input[type="file"]::file-selector-button {
   border: 1px solid #c3c9d1;
   border-radius: 4px;
   cursor: pointer;
+}
+
+/* ---------- Ablehnung, Sekretariat ---------- */
+
+.status--abgezeichnet {
+  color: var(--warn);
+  background: var(--warn-hell);
+}
+
+.status--abgelehnt {
+  color: var(--fehler);
+  background: var(--fehler-hell);
+}
+
+.stand .abgelehnt {
+  color: var(--fehler);
+  background: var(--fehler-hell);
+}
+
+.stand .entfaellt {
+  font-weight: 400;
+  color: var(--text-leise);
+  background: repeating-linear-gradient(135deg, #fafbfc 0 8px, #f3f4f6 8px 16px);
+}
+
+.begruendung {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  color: var(--fehler);
+  background: var(--fehler-hell);
+  border-radius: var(--radius);
+}
+
+.begruendung--warn {
+  color: var(--warn);
+  background: var(--warn-hell);
+}
+
+.dialog__feld {
+  margin-top: 1rem;
+}
+
+/* ---------- Erweiterung: Abteilungen, Rollen, Sekretariat, Log ---------- */
+
+.titelzeile {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.titelzeile .knopfzeile {
+  margin-top: 0;
+}
+
+.abstand-unten {
+  margin-bottom: 0.75rem;
+}
+
+.abstand-oben {
+  margin-top: 0.75rem;
+}
+
+.block {
+  display: block;
+}
+
+.feld__titel {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.feld--unten {
+  justify-content: flex-end;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  width: auto;
+  margin: 0;
+  accent-color: var(--akzent);
+}
+
+.haken {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.feld .haken {
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.haken input {
+  margin-top: 0.3rem;
+}
+
+.auswahlreihe {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  padding: 0.4rem 0;
+}
+
+.zaehler {
+  display: inline-block;
+  min-width: 1.3rem;
+  padding: 0 0.35rem;
+  font-size: 0.75rem;
+  line-height: 1.3rem;
+  text-align: center;
+  color: #fff;
+  background: var(--fehler);
+  border-radius: 999px;
+}
+
+.status--entwurf {
+  color: var(--text-leise);
+  background: var(--grund);
+}
+
+.status--storniert {
+  color: var(--text-leise);
+  background: #eceef1;
+  text-decoration: line-through;
+}
+
+.aufgabe {
+  font-weight: 600;
+  color: var(--akzent-dunkel);
+}
+
+.marke-k {
+  display: inline-block;
+  margin-left: 0.25rem;
+  padding: 0 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--text);
+  border-radius: 4px;
+}
+
+.tabelle tr.ausgeblendet td {
+  color: var(--text-leise);
+  background: #fafbfc;
+}
+
+.karte--aufgabe {
+  border-left: 4px solid var(--akzent);
+}
+
+.karte--aufgabe h2 small {
+  font-weight: 400;
+}
+
+.stand--fuenf {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.filterleiste {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.75rem 1rem;
+}
+
+.filterleiste .feld {
+  min-width: 11rem;
+}
+
+.filterleiste .haken {
+  padding-bottom: 0.55rem;
+}
+
+.karte .filterleiste {
+  margin-bottom: 1rem;
+}
+
+.tabelle--eingabe td {
+  padding: 0.4rem 0.5rem;
+}
+
+.tabelle--eingabe input {
+  padding: 0.35rem 0.5rem;
+}
+
+.nachrichten {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nachrichten .karte {
+  padding: 0.9rem 1.1rem;
+}
+
+.nachricht--neu {
+  border-left: 4px solid var(--akzent);
+}
+
+.neu {
+  padding: 0.05rem 0.45rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--akzent);
+  border-radius: 999px;
+}
+
+@media (max-width: 700px) {
+  .stand--fuenf {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media print {
+  .kopf,
+  .filterleiste,
+  .knopfzeile,
+  .zurueck {
+    display: none;
+  }
+
+  body {
+    background: #fff;
+  }
 }
