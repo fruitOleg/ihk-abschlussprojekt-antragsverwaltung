@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Login – Antragsverwaltung</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<main class="anmeldung">
+  <div class="anmeldung__box" data-hinweise>
+
+    <section class="karte">
+      <h1>Antragsverwaltung</h1>
+
+      <form id="anmeldung" class="anmeldung__formular" novalidate>
+        <div class="feld">
+          <label for="login">Benutzername</label>
+          <input id="login" name="login" type="text" autocomplete="username">
+        </div>
+        <div class="feld">
+          <label for="passwort">Passwort</label>
+          <input id="passwort" name="passwort" type="password" autocomplete="current-password">
+        </div>
+        <p id="anmeldeFehler" class="feld__fehler" role="alert" hidden></p>
+        <button class="knopf knopf--voll" type="submit">Anmelden</button>
+      </form>
+    </section>
+
+    <!-- nur für den Prototyp, entfällt mit dem PHP-Login -->
+    <section class="karte demo" aria-labelledby="demo-titel">
+      <h2 id="demo-titel">Demo-Zugänge</h2>
+      <p class="leise">Prototyp ohne Server: Das Passwort wird noch nicht geprüft.</p>
+      <div class="tabelle-rahmen">
+        <table class="tabelle">
+          <thead>
+            <tr><th scope="col">Benutzer</th><th scope="col">Name</th><th scope="col">Rolle</th></tr>
+          </thead>
+          <tbody id="demoZugaenge"></tbody>
+        </table>
+      </div>
+      <p class="demo__fuss"><button type="button" class="link" id="zuruecksetzen">Demodaten zurücksetzen</button></p>
+    </section>
+
+  </div>
+</main>
+
+<script src="js/daten.js"></script>
+<script src="js/app.js"></script>
+<script src="js/anmeldung.js"></script>
+</body>
+</html>

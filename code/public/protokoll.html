@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Log & Export – Antragsverwaltung</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header id="kopf" class="kopf"></header>
+
+<main class="inhalt" data-hinweise>
+  <div>
+    <h1>Log &amp; Export</h1>
+    <p class="leise">Die Logdatei wird bei jeder Aktion automatisch ergänzt. Sie kann ausgegeben, aber von niemandem verändert werden.</p>
+  </div>
+
+  <section class="karte" aria-labelledby="export-titel">
+    <h2 id="export-titel">Datensicherung</h2>
+    <p>Export aller Antragsdaten zusammen mit der Logdatei als JSON-Datei.</p>
+    <div class="knopfzeile knopfzeile--links">
+      <button type="button" class="knopf" id="export">Datensicherung herunterladen</button>
+    </div>
+  </section>
+
+  <section class="karte" aria-labelledby="log-titel">
+    <div class="titelzeile">
+      <h2 id="log-titel">Logdatei</h2>
+      <div class="knopfzeile">
+        <button type="button" class="knopf knopf--zweit knopf--klein" id="csv">Als CSV ausgeben</button>
+        <button type="button" class="knopf knopf--zweit knopf--klein" id="drucken">Drucken</button>
+      </div>
+    </div>
+    <form class="filterleiste" id="filter" role="search">
+      <div class="feld">
+        <label for="f-suche">Suche</label>
+        <input id="f-suche" name="suche" type="search" placeholder="Antrag, Person, Aktion">
+      </div>
+      <div class="feld">
+        <label for="f-aktion">Aktion</label>
+        <select id="f-aktion" name="aktion"></select>
+      </div>
+    </form>
+    <p class="leise" id="anzahl"></p>
+    <div id="log"></div>
+  </section>
+</main>
+
+<script src="js/daten.js"></script>
+<script src="js/app.js"></script>
+<script src="js/protokoll.js"></script>
+</body>
+</html>
