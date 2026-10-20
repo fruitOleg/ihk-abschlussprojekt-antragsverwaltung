@@ -4,6 +4,8 @@ rem   start.bat                 startet den Server auf http://127.0.0.1:8000
 rem   start.bat install         legt Tabellen und Grunddaten an
 rem   start.bat install demo    zusaetzlich Beispielantraege
 rem   start.bat install neu     Tabellen loeschen und neu aufbauen
+rem   start.bat einrichten      Ersteinrichtung auf neuem Rechner (XAMPP): Passwoerter,
+rem                             Datenbank, Benutzer, Tabellen und Beispieldaten
 
 setlocal enabledelayedexpansion
 cd /d "%~dp0"
@@ -29,6 +31,14 @@ if errorlevel 1 (
   set OPTIONEN=-d "extension_dir=!EXT!" -d extension=pdo_mysql -d extension=fileinfo -d extension=mbstring
 )
 set "OPTIONEN=%OPTIONEN% -d upload_max_filesize=5M -d post_max_size=6M"
+
+if /i "%~1"=="einrichten" (
+  "%PHP%" %OPTIONEN% einrichten.php || exit /b 1
+  "%PHP%" %OPTIONEN% install.php demo
+  echo.
+  echo Fertig. Starten mit:  start.bat   danach http://127.0.0.1:8000 im Browser
+  exit /b
+)
 
 if /i "%~1"=="install" (
   "%PHP%" %OPTIONEN% install.php %2 %3

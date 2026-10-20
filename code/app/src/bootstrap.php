@@ -20,9 +20,12 @@ require __DIR__ . '/anzeige.php';
 set_exception_handler(function (Throwable $fehler): void {
     error_log((string) $fehler);
 
-    $text = $fehler instanceof PDOException
-        ? 'Keine Verbindung zur Datenbank. Läuft MySQL, und stimmen die Angaben in config.local.php?'
-        : 'Es ist ein unerwarteter Fehler aufgetreten. Details stehen im Server-Log.';
+    $text = match (true) {
+        $fehler instanceof PDOException => 'Keine Verbindung zur Datenbank. Läuft MySQL, und stimmt das Passwort '
+            . 'in code/config.local.php mit dem in der Datenbank überein? Siehe docs/Installation_XAMPP.md.',
+        $fehler instanceof KonfigFehler => $fehler->getMessage(),
+        default => 'Es ist ein unerwarteter Fehler aufgetreten. Details stehen im Server-Log.',
+    };
 
     if (PHP_SAPI === 'cli') {
         fwrite(STDERR, $text . PHP_EOL . $fehler->getMessage() . PHP_EOL);
@@ -34,15 +37,24 @@ set_exception_handler(function (Throwable $fehler): void {
     echo '<p style="font-family: sans-serif; padding: 2rem">' . e($text) . '</p></html>';
 });
 
+// fehlende oder unvollständige Konfiguration; die Meldung darf angezeigt werden
+class KonfigFehler extends RuntimeException
+{
+}
+
 function konfig(): array
 {
     static $konfig = null;
     if ($konfig === null) {
         $datei = PROJEKT . '/config.local.php';
         if (!is_file($datei)) {
-            throw new RuntimeException('config.local.php fehlt im Ordner code/.');
+            throw new KonfigFehler('code/config.local.php fehlt. Mit "start.bat einrichten" anlegen oder '
+                . 'code/config.example.php kopieren und ausfüllen (siehe docs/Installation_XAMPP.md).');
         }
         $konfig = require $datei;
+        if (str_contains((string) ($konfig['db']['pass'] ?? ''), 'HIER_')) {
+            throw new KonfigFehler('In code/config.local.php steht noch der Platzhalter statt des Datenbank-Passworts.');
+        }
     }
     return $konfig;
 }
