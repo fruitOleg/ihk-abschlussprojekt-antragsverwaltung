@@ -35,7 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $werte['abteilung'] = post('abteilung');
     $werte['anlass'] = post('anlass');
-    $werte['daten'] = formulardatenLesen($werte['anlass']);
+    // beim Speichern zählen nur ausgefüllte Tätigkeitszeilen; beim Neuaufbau bleiben auch leere stehen
+    $werte['daten'] = formulardatenLesen($werte['anlass'], !in_array($tat, ['entwurf', 'absenden'], true));
 
     if ($tat === 'zeile') {
         $werte['daten']['taetigkeiten'][] = ['datum' => '', 'stunden' => '', 'taetigkeit' => ''];
@@ -61,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // liest die Felder des gewählten Anlasses aus dem Formular
-function formulardatenLesen(string $anlass): array
+function formulardatenLesen(string $anlass, bool $leereZeilenBehalten = false): array
 {
     if (!isset(ANLAESSE[$anlass])) {
         return [];
@@ -76,7 +77,7 @@ function formulardatenLesen(string $anlass): array
                     'stunden'    => trim((string) ($_POST['taet_stunden'][$i] ?? '')),
                     'taetigkeit' => trim((string) ($_POST['taet_taetigkeit'][$i] ?? '')),
                 ];
-                if ($zeile['datum'] || $zeile['stunden'] || $zeile['taetigkeit']) {
+                if ($leereZeilenBehalten || $zeile['datum'] || $zeile['stunden'] || $zeile['taetigkeit']) {
                     $zeilen[] = $zeile;
                 }
             }

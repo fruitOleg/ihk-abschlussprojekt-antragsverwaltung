@@ -48,13 +48,12 @@
       zeile.className = 'knopfzeile';
 
       const knopfNein = document.createElement('button');
-      knopfNein.value = 'nein';
+      knopfNein.type = 'button';
       knopfNein.className = 'knopf knopf--zweit';
       knopfNein.textContent = nein;
-      knopfNein.formNoValidate = true;
 
       const knopfJa = document.createElement('button');
-      knopfJa.value = 'ja';
+      knopfJa.type = 'button';
       knopfJa.className = gefahr ? 'knopf knopf--gefahr' : 'knopf';
       knopfJa.textContent = ja;
 
@@ -63,13 +62,39 @@
       dialog.append(formular);
       document.body.append(dialog);
 
-      dialog.addEventListener('close', () => {
-        const ok = dialog.returnValue === 'ja';
-        fertig(ok ? { ok: true, text: feld ? feld.value.trim() : '' } : { ok: false });
+      // Die Knöpfe beenden die Abfrage selbst. Auf das close-Ereignis allein ist kein Verlass:
+      // manche Chromium-Fassungen (u. a. der Browser in VS Code) lösen es dabei nicht aus.
+      let erledigt = false;
+      const beenden = ergebnis => {
+        if (erledigt) return;
+        erledigt = true;
+        if (dialog.open) dialog.close();
         dialog.remove();
+        fertig(ergebnis);
+      };
+
+      knopfJa.addEventListener('click', () => {
+        if (feld && pflicht && !feld.value.trim()) {
+          feld.setCustomValidity('Bitte ausfüllen.');
+          feld.reportValidity();
+          feld.focus();
+          return;
+        }
+        beenden({ ok: true, text: feld ? feld.value.trim() : '' });
       });
+      knopfNein.addEventListener('click', () => beenden({ ok: false }));
+      if (feld) feld.addEventListener('input', () => feld.setCustomValidity(''));
+
+      // Esc oder Schließen durch den Browser gilt als "Abbrechen"
+      dialog.addEventListener('cancel', ereignis => {
+        ereignis.preventDefault();
+        beenden({ ok: false });
+      });
+      dialog.addEventListener('close', () => beenden({ ok: false }));
+      formular.addEventListener('submit', ereignis => ereignis.preventDefault());
+
       dialog.showModal();
-      knopfNein.focus();
+      (feld || knopfNein).focus();
     });
   }
 
@@ -126,7 +151,18 @@
   const naechstes = () => {
     const dialog = sofort.shift();
     if (!dialog) return;
-    dialog.addEventListener('close', naechstes);
+    let weiter = false;
+    const schliessen = ereignis => {
+      if (ereignis) ereignis.preventDefault();
+      if (weiter) return;
+      weiter = true;
+      if (dialog.open) dialog.close();
+      naechstes();
+    };
+    // wie oben: nicht nur auf das close-Ereignis verlassen
+    dialog.querySelectorAll('button').forEach(knopf => knopf.addEventListener('click', schliessen));
+    dialog.addEventListener('cancel', schliessen);
+    dialog.addEventListener('close', () => schliessen());
     dialog.showModal();
   };
   naechstes();

@@ -25,8 +25,8 @@ function seitenkopf(string $titel, ?array $benutzer): void
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title><?= e($titel) ?> – Antragsverwaltung</title>
-<link rel="stylesheet" href="css/style.css">
-<script src="js/dialog.js" defer></script>
+<link rel="stylesheet" href="css/style.css?v=<?= dateiVersion('css/style.css') ?>">
+<script src="js/dialog.js?v=<?= dateiVersion('js/dialog.js') ?>" defer></script>
 </head>
 <body>
 <?php if ($benutzer): ?>
@@ -55,6 +55,12 @@ function seitenkopf(string $titel, ?array $benutzer): void
 <?php
     popupsAusgeben($benutzer);
 endif;
+}
+
+// Änderungszeit als Versionsnummer, damit der Browser nach einer Änderung nicht die alte Datei nimmt
+function dateiVersion(string $datei): int
+{
+    return (int) @filemtime(__DIR__ . '/../public/' . $datei);
 }
 
 function hinweisAusgeben(): void

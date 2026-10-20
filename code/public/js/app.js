@@ -207,18 +207,45 @@ const App = (() => {
             <textarea id="dialog-eingabe" rows="3"${pflicht ? ' required' : ''}></textarea>
           </div>` : ''}
           <div class="knopfzeile">
-            ${nein ? `<button value="nein" class="knopf knopf--zweit" formnovalidate>${esc(nein)}</button>` : ''}
-            <button value="ja" class="knopf${gefahr ? ' knopf--gefahr' : ''}">${esc(ja)}</button>
+            ${nein ? `<button type="button" value="nein" class="knopf knopf--zweit">${esc(nein)}</button>` : ''}
+            <button type="button" value="ja" class="knopf${gefahr ? ' knopf--gefahr' : ''}">${esc(ja)}</button>
           </div>
         </form>`;
       document.body.appendChild(dialog);
-      dialog.addEventListener('close', () => {
-        const ok = dialog.returnValue === 'ja';
-        fertig(eingabe ? (ok ? dialog.querySelector('textarea').value.trim() : false) : ok);
+
+      // Die Knöpfe beenden die Abfrage selbst. Auf das close-Ereignis allein ist kein Verlass:
+      // manche Chromium-Fassungen (u. a. der Browser in VS Code) lösen es dabei nicht aus.
+      const feld = dialog.querySelector('textarea');
+      let erledigt = false;
+      const beenden = ok => {
+        if (erledigt) return;
+        erledigt = true;
+        if (dialog.open) dialog.close();
         dialog.remove();
+        fertig(eingabe ? (ok ? feld.value.trim() : false) : ok);
+      };
+
+      dialog.querySelector('button[value="ja"]').addEventListener('click', () => {
+        if (feld && pflicht && !feld.value.trim()) {
+          feld.setCustomValidity('Bitte ausfüllen.');
+          feld.reportValidity();
+          feld.focus();
+          return;
+        }
+        beenden(true);
       });
+      const knopfNein = dialog.querySelector('button[value="nein"]');
+      if (knopfNein) knopfNein.addEventListener('click', () => beenden(false));
+      if (feld) feld.addEventListener('input', () => feld.setCustomValidity(''));
+      dialog.addEventListener('cancel', ereignis => {
+        ereignis.preventDefault();
+        beenden(false);
+      });
+      dialog.addEventListener('close', () => beenden(false));
+      dialog.querySelector('form').addEventListener('submit', ereignis => ereignis.preventDefault());
+
       dialog.showModal();
-      dialog.querySelector(nein ? 'button[value="nein"]' : 'button[value="ja"]').focus();
+      (feld || dialog.querySelector(nein ? 'button[value="nein"]' : 'button[value="ja"]')).focus();
     });
   }
 
