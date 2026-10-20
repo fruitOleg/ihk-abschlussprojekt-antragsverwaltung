@@ -17,6 +17,19 @@ cd ihk-abschlussprojekt-antragsverwaltung\code\app
 Danach im Browser **http://127.0.0.1:8000** öffnen. Das Anmeldepasswort zeigt `.\start.bat einrichten` am Ende an
 (es steht außerdem in `code\config.local.php` unter `startpasswort`).
 
+## Am schnellsten: aus VS Code mit F5
+
+Projektordner in VS Code öffnen und **F5** drücken (Eintrag „Antragsverwaltung starten (XAMPP)“).
+Vorher läuft automatisch `code\app\xampp-start.ps1`:
+
+1. startet MySQL und Apache von XAMPP, falls sie nicht laufen,
+2. legt `C:\xampp\htdocs\antragsverwaltung` als Verknüpfung auf `code\app\public` an,
+3. richtet beim ersten Mal Passwörter, Datenbank und Beispieldaten ein.
+
+Danach öffnet sich **http://localhost/antragsverwaltung/**. Weitere Einträge unter *Ausführen und Debuggen*:
+Start in Firefox und der Prototyp ohne Server. Unter *Terminal > Aufgabe ausführen* gibt es
+„Beispieldaten zurücksetzen“.
+
 ## Schritt für Schritt
 
 ### 1. XAMPP starten
@@ -63,6 +76,15 @@ Die beiden Dateien `config.local.php` und `setup.local.sql` stehen in `.gitignor
 ```
 
 Adresse: **http://127.0.0.1:8000**. Beenden mit Strg+C.
+
+Ohne `start.bat`, direkt über Apache von XAMPP: einmalig im Ordner `C:\xampp\htdocs` die Verknüpfung anlegen
+
+```
+cmd /c mklink /J C:\xampp\htdocs\antragsverwaltung C:\PFAD\ZUM\PROJEKT\code\app\public
+```
+
+und dann **http://localhost/antragsverwaltung/** öffnen. Das erledigt auch `code\app\xampp-start.ps1`.
+Von außen erreichbar ist nur `code\app\public`; Quelltext und Zugangsdaten liegen außerhalb.
 
 ## Benutzer für die Vorführung
 

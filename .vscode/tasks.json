@@ -1,0 +1,29 @@
+{
+    // Aufgaben für die Antragsverwaltung: Terminal > Aufgabe ausführen …
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Antragsverwaltung: XAMPP starten",
+            "detail": "MySQL und Apache starten, beim ersten Mal Datenbank einrichten",
+            "type": "process",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy", "Bypass",
+                "-File", "${workspaceFolder}\\code\\app\\xampp-start.ps1"
+            ],
+            "problemMatcher": [],
+            "presentation": { "reveal": "silent", "panel": "dedicated", "clear": true }
+        },
+        {
+            "label": "Antragsverwaltung: Beispieldaten zurücksetzen",
+            "detail": "Alle Tabellen leeren und die 12 Beispielanträge neu anlegen",
+            "type": "process",
+            "command": "C:\\xampp\\php\\php.exe",
+            "args": ["install.php", "neu", "demo"],
+            "options": { "cwd": "${workspaceFolder}\\code\\app" },
+            "problemMatcher": [],
+            "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
+        }
+    ]
+}
