@@ -38,14 +38,10 @@ if (-not (Test-Path $php)) {
 
 # ---------- 1. MySQL ----------
 Schritt 'MySQL'
-$mysql = Prozess-Auf-Port 3306
-if (-not $mysql) {
+if (-not (Prozess-Auf-Port 3306)) {
     Start-Process -FilePath (Join-Path $xampp 'mysql_start.bat') -WorkingDirectory $xampp -WindowStyle Hidden
     Warten-Auf-Port 3306 'MySQL'
     Write-Host 'gestartet'
-} elseif ($mysql.Path -and $mysql.Path -notlike "$xampp*") {
-    throw "Port 3306 belegt ein anderer Datenbankserver ($($mysql.Path)), vermutlich der Dienst MySQL80. " +
-          'Diesen beenden (Dienste > MySQL80 > Beenden) und erneut starten.'
 } else {
     Write-Host 'laeuft bereits'
 }
@@ -78,7 +74,7 @@ try {
         # erster Start auf diesem Rechner: Passwörter, Datenbank, Benutzer, Beispiele
         & $php einrichten.php
         if ($LASTEXITCODE -ne 0) { throw 'Einrichtung fehlgeschlagen (siehe Meldungen oben).' }
-        & $php install.php demo
+        & $php install.php demo passwort
     } else {
         # legt fehlende Tabellen an, vorhandene Daten bleiben unverändert
         & $php install.php | Select-Object -Last 2

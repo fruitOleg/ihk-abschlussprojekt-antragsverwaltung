@@ -97,7 +97,7 @@ Alle mit dem Anmeldepasswort aus `config.local.php`:
 | `lang` | Abteilungsleiter EMT (und Lehrer) |
 | `becker` | Abteilungsleiter IPT (und Lehrer) |
 | `roth` | stellv. Schulleiter (und Lehrer) |
-| `wenzel` | Schulleiter (und Lehrer) |
+| `rahali` | Schulleiter (und Lehrer) |
 | `hoffmann` | Sekretariat |
 | `admin` | Administrator (Benutzerverwaltung) |
 

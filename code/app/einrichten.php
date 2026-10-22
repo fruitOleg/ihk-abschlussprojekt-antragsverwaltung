@@ -50,7 +50,8 @@ if (is_file($konfigDatei)) {
     echo "vorhanden, wird weiterverwendet\n";
 } else {
     $dbPasswort = zufall(28);
-    $startPasswort = 'Antrag-' . zufall(4) . '-' . zufall(4);
+    // einfaches Anmeldepasswort für die Vorführung; in config.local.php jederzeit änderbar
+    $startPasswort = '1234';
     $inhalt = str_replace(
         ['HIER_DATENBANK_PASSWORT', 'HIER_ANMELDE_PASSWORT'],
         [$dbPasswort, $startPasswort],

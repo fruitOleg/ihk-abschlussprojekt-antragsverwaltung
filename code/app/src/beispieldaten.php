@@ -46,26 +46,26 @@ function beispieldatenAnlegen(PDO $pdo): int
         ['brandt', 'IPT', 'dienstlich', $lehrkraft(-20, 'Prüfungsausschuss IHK'), 'genehmigt',
             ['k' => 0, 'sek' => 1, 'aus' => 1], 30,
             [[30, 'brandt', 'eingereicht', 'Abteilung IPT'], [29, 'becker', 'abgezeichnet_al', ''],
-             [28, 'roth', 'abgezeichnet_ssl', ''], [27, 'wenzel', 'genehmigt', ''],
+             [28, 'roth', 'abgezeichnet_ssl', ''], [27, 'rahali', 'genehmigt', ''],
              [26, 'hoffmann', 'sek_abgezeichnet', ''], [25, 'hoffmann', 'ausgeblendet', '']]],
 
         // abgeschlossen, mit Feld K
         ['brandt', 'IPT', 'dienstbefreiung', $lehrkraft(3, 'Hochzeit der Tochter'), 'genehmigt',
             ['k' => 1, 'sek' => 1, 'aus' => 0], 12,
             [[12, 'brandt', 'eingereicht', 'Abteilung IPT'], [11, 'becker', 'abgezeichnet_al', 'Feld „K“ gesetzt (ganztägige Abwesenheit)'],
-             [10, 'roth', 'abgezeichnet_ssl', ''], [9, 'wenzel', 'genehmigt', ''], [8, 'hoffmann', 'sek_abgezeichnet', 'Feld „K“ berücksichtigt']]],
+             [10, 'roth', 'abgezeichnet_ssl', ''], [9, 'rahali', 'genehmigt', ''], [8, 'hoffmann', 'sek_abgezeichnet', 'Feld „K“ berücksichtigt']]],
 
         // genehmigt, liegt beim Sekretariat
         ['keller', 'BBWQ', 'fortbildung', $lehrkraft(9, 'Fortbildung „Digitale Medien im Unterricht“, LPM Saarbrücken'), 'genehmigt',
             ['k' => 1, 'sek' => 0, 'aus' => 0], 9,
             [[9, 'keller', 'eingereicht', 'Abteilung BBWQ'], [8, 'vogt', 'abgezeichnet_al', 'Feld „K“ gesetzt (ganztägige Abwesenheit)'],
-             [7, 'roth', 'abgezeichnet_ssl', ''], [6, 'wenzel', 'genehmigt', '']]],
+             [7, 'roth', 'abgezeichnet_ssl', ''], [6, 'rahali', 'genehmigt', '']]],
 
         // vom Schulleiter abgelehnt, AL muss abzeichnen
         ['brandt', 'BBWQ', 'verlegung', $lehrkraft(6, 'Arzttermin, nicht verschiebbar'), 'abgelehnt',
             ['k' => 0, 'sek' => 0, 'aus' => 0], 7,
             [[7, 'brandt', 'eingereicht', 'Abteilung BBWQ'], [6, 'schulz', 'abgezeichnet_al', ''], [5, 'roth', 'abgezeichnet_ssl', ''],
-             [4, 'wenzel', 'abgelehnt', 'Am Termin finden Abschlussprüfungen statt, bitte Termin verlegen.']]],
+             [4, 'rahali', 'abgelehnt', 'Am Termin finden Abschlussprüfungen statt, bitte Termin verlegen.']]],
 
         // vom Lehrer zurückgezogen, AL muss abzeichnen
         ['keller', 'EMT', 'dienstlich', $lehrkraft(14, 'Messebesuch mit Ausbildungsbetrieben'), 'storniert',
@@ -113,9 +113,9 @@ function beispieldatenAnlegen(PDO $pdo): int
         ], 'entwurf', ['k' => 0, 'sek' => 0, 'aus' => 0], 1, []],
 
         // Antrag des Schulleiters: der stellv. Schulleiter genehmigt in Vertretung
-        ['wenzel', 'BBWQ', 'dienstlich', $lehrkraft(8, 'Schulleitertagung Ministerium'), 'abgezeichnet_al',
+        ['rahali', 'BBWQ', 'dienstlich', $lehrkraft(8, 'Schulleitertagung Ministerium'), 'abgezeichnet_al',
             ['k' => 1, 'sek' => 0, 'aus' => 0], 3,
-            [[3, 'wenzel', 'eingereicht', 'Abteilung BBWQ'], [2, 'vogt', 'abgezeichnet_al', 'Feld „K“ gesetzt (ganztägige Abwesenheit)']]],
+            [[3, 'rahali', 'eingereicht', 'Abteilung BBWQ'], [2, 'vogt', 'abgezeichnet_al', 'Feld „K“ gesetzt (ganztägige Abwesenheit)']]],
     ];
 
     $pdo->beginTransaction();

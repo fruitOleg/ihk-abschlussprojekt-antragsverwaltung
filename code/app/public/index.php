@@ -54,6 +54,35 @@ seitenkopf('Anmeldung', null);
         <button type="submit" class="knopf knopf--voll">Anmelden</button>
       </form>
     </section>
+
+    <!-- Testzugänge für die Vorführung; das Passwort wird mündlich mitgeteilt -->
+    <section class="karte demo" aria-labelledby="zugaenge-titel">
+      <h2 id="zugaenge-titel">Zugänge zum Testen</h2>
+      <p class="leise">Benutzername anklicken, um ihn einzutragen. Das Passwort erhalten Sie von der Projektgruppe.</p>
+      <div class="tabelle-rahmen">
+        <table class="tabelle">
+          <thead>
+            <tr><th scope="col">Benutzer</th><th scope="col">Name</th><th scope="col">Rolle</th></tr>
+          </thead>
+          <tbody>
+            <?php
+            // in der Reihenfolge des Genehmigungswegs: Lehrer, AL, stellv. SL, SL, Sekretariat, Admin
+            $rang = fn(array $b) => max(array_map(fn($r) => array_search($r, array_keys(ROLLEN), true), $b['rollen'] ?: ['lehrer']));
+            $zugaenge = alleBenutzer();
+            usort($zugaenge, fn($a, $b) => [$rang($a), $a['login']] <=> [$rang($b), $b['login']]);
+            foreach ($zugaenge as $b): ?>
+              <?php if ($b['aktiv']): ?>
+                <tr>
+                  <td><button type="button" class="link" data-login="<?= e($b['login']) ?>"><?= e($b['login']) ?></button></td>
+                  <td><?= e($b['name']) ?></td>
+                  <td><?= e(rollenText($b)) ?></td>
+                </tr>
+              <?php endif ?>
+            <?php endforeach ?>
+          </tbody>
+        </table>
+      </div>
+    </section>
   </div>
 </main>
 <?php

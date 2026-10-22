@@ -1,0 +1,23 @@
+{
+    // GitHub Codespaces: startet die Antragsverwaltung samt Datenbank in der Cloud.
+    // Beim ersten Start richtet einrichten.sh alles ein, danach startet start.sh nur noch die Dienste.
+    "name": "Antragsverwaltung",
+    "image": "mcr.microsoft.com/devcontainers/base:bookworm",
+    "features": {
+        "ghcr.io/devcontainers/features/github-cli:1": {}
+    },
+    "postCreateCommand": "bash .devcontainer/einrichten.sh",
+    "postStartCommand": "bash .devcontainer/start.sh",
+    "forwardPorts": [8000],
+    "portsAttributes": {
+        "8000": {
+            "label": "Antragsverwaltung",
+            "onAutoForward": "openBrowser"
+        }
+    },
+    "customizations": {
+        "codespaces": {
+            "openFiles": ["README.md"]
+        }
+    }
+}

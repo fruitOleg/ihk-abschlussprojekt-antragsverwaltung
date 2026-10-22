@@ -34,7 +34,7 @@ set "OPTIONEN=%OPTIONEN% -d upload_max_filesize=5M -d post_max_size=6M"
 
 if /i "%~1"=="einrichten" (
   "%PHP%" %OPTIONEN% einrichten.php || exit /b 1
-  "%PHP%" %OPTIONEN% install.php demo
+  "%PHP%" %OPTIONEN% install.php demo passwort
   echo.
   echo Fertig. Starten mit:  start.bat   danach http://127.0.0.1:8000 im Browser
   exit /b

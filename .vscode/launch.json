@@ -14,6 +14,7 @@
             "type": "firefox",
             "request": "launch",
             "url": "http://localhost/antragsverwaltung/",
+            "webRoot": "${workspaceFolder}/code/app/public",
             "preLaunchTask": "Antragsverwaltung: XAMPP starten"
         },
         {

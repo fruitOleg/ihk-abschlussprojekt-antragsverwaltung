@@ -14,7 +14,7 @@
 const Daten = (() => {
   'use strict';
 
-  const SPEICHER = 'antragsverwaltung-demo-v6';
+  const SPEICHER = 'antragsverwaltung-demo-v7';
 
   const ROLLEN = {
     lehrer: 'Lehrer',
@@ -524,7 +524,7 @@ const Daten = (() => {
       { id: 5,  login: 'lang',     name: 'J. Lang',     amt: 'StD',  rollen: ['lehrer', 'al'],  abteilungen: ['EMT'] },
       { id: 6,  login: 'becker',   name: 'R. Becker',   amt: 'StD',  rollen: ['lehrer', 'al'],  abteilungen: ['IPT'] },
       { id: 7,  login: 'roth',     name: 'K. Roth',     amt: 'StD',  rollen: ['lehrer', 'ssl'], abteilungen: [] },
-      { id: 8,  login: 'wenzel',   name: 'Dr. Wenzel',  amt: 'OStD', rollen: ['lehrer', 'sl'],  abteilungen: [] },
+      { id: 8,  login: 'rahali',   name: 'Mamut Rahali',  amt: 'OStD', rollen: ['lehrer', 'sl'],  abteilungen: [] },
       { id: 9,  login: 'hoffmann', name: 'A. Hoffmann', amt: '',     rollen: ['sek'],           abteilungen: [] },
       { id: 10, login: 'admin',    name: 'IT-Administration', amt: '', rollen: ['admin'],       abteilungen: [] }
     ].map(b => ({ ...b, aktiv: true }));
@@ -561,18 +561,18 @@ const Daten = (() => {
     };
 
     anlegen(231, 'brandt', 'IPT', 'dienstlich', lehrkraft(-20, 'Prüfungsausschuss IHK'), [
-      ['einreichen', 'brandt', 30], ['al', 'becker', 29, false], ['ssl', 'roth', 28], ['genehmigen', 'wenzel', 27],
+      ['einreichen', 'brandt', 30], ['al', 'becker', 29, false], ['ssl', 'roth', 28], ['genehmigen', 'rahali', 27],
       ['sek', 'hoffmann', 26], ['ausblenden', 'hoffmann', 25]
     ]);
     anlegen(232, 'brandt', 'IPT', 'dienstbefreiung', lehrkraft(3, 'Hochzeit der Tochter'), [
-      ['einreichen', 'brandt', 12], ['al', 'becker', 11, true], ['ssl', 'roth', 10], ['genehmigen', 'wenzel', 9], ['sek', 'hoffmann', 8]
+      ['einreichen', 'brandt', 12], ['al', 'becker', 11, true], ['ssl', 'roth', 10], ['genehmigen', 'rahali', 9], ['sek', 'hoffmann', 8]
     ]);
     anlegen(233, 'keller', 'BBWQ', 'fortbildung', lehrkraft(9, 'Fortbildung „Digitale Medien im Unterricht“, LPM Saarbrücken'), [
-      ['einreichen', 'keller', 9], ['al', 'vogt', 8, true], ['ssl', 'roth', 7], ['genehmigen', 'wenzel', 6]
+      ['einreichen', 'keller', 9], ['al', 'vogt', 8, true], ['ssl', 'roth', 7], ['genehmigen', 'rahali', 6]
     ]);
     anlegen(234, 'brandt', 'BBWQ', 'verlegung', lehrkraft(6, 'Arzttermin, nicht verschiebbar'), [
       ['einreichen', 'brandt', 7], ['al', 'schulz', 6, false], ['ssl', 'roth', 5],
-      ['ablehnen', 'wenzel', 4, 'Am Termin finden Abschlussprüfungen statt, bitte Termin verlegen.']
+      ['ablehnen', 'rahali', 4, 'Am Termin finden Abschlussprüfungen statt, bitte Termin verlegen.']
     ]);
     anlegen(235, 'keller', 'EMT', 'dienstlich', lehrkraft(14, 'Messebesuch mit Ausbildungsbetrieben'), [
       ['einreichen', 'keller', 6], ['al', 'lang', 5, false], ['storno', 'keller', 3, 'Messe wurde abgesagt.']
@@ -602,8 +602,8 @@ const Daten = (() => {
       beginn_datum: datumIn(10), beginn_zeit: '08:00', ende_datum: datumIn(10), ende_zeit: '13:00', verkehrsmittel: 'Bus',
       info_freigesetzt: false, taetigkeiten: []
     }, []);
-    anlegen(242, 'wenzel', 'BBWQ', 'dienstlich', lehrkraft(8, 'Schulleitertagung Ministerium'), [
-      ['einreichen', 'wenzel', 3], ['al', 'vogt', 2, true]
+    anlegen(242, 'rahali', 'BBWQ', 'dienstlich', lehrkraft(8, 'Schulleitertagung Ministerium'), [
+      ['einreichen', 'rahali', 3], ['al', 'vogt', 2, true]
     ]);
 
     // Beispiele wurden Antrag für Antrag erzeugt: Log zeitlich ordnen und neu nummerieren

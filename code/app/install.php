@@ -7,6 +7,7 @@ declare(strict_types=1);
  *   start.bat install        Tabellen anlegen und Grunddaten einspielen
  *   start.bat install demo   zusätzlich Beispielanträge anlegen
  *   start.bat install neu    alle Tabellen löschen und neu aufbauen (Daten gehen verloren)
+ *   start.bat install passwort  allen Konten das Startpasswort aus config.local.php geben
  *
  * Das Startpasswort steht in config.local.php und gelangt nicht ins Repository.
  */
@@ -21,6 +22,7 @@ require __DIR__ . '/src/bootstrap.php';
 $befehle = array_slice($argv, 1);
 $neu = in_array('neu', $befehle, true);
 $demo = in_array('demo', $befehle, true);
+$passwortSetzen = in_array('passwort', $befehle, true);
 
 $pdo = db();
 
@@ -41,7 +43,7 @@ const BENUTZER = [
     'lang'     => ['J. Lang',           'StD',  ['lehrer', 'al'], ['EMT']],
     'becker'   => ['R. Becker',         'StD',  ['lehrer', 'al'], ['IPT']],
     'roth'     => ['K. Roth',           'StD',  ['lehrer', 'ssl'], []],
-    'wenzel'   => ['Dr. Wenzel',        'OStD', ['lehrer', 'sl'],  []],
+    'rahali'   => ['Mamut Rahali',        'OStD', ['lehrer', 'sl'],  []],
     'hoffmann' => ['A. Hoffmann',       '',     ['sek'],           []],
     'admin'    => ['IT-Administration', '',     ['admin'],         []],
 ];
@@ -112,7 +114,17 @@ echo 'Abteilungen: ' . implode(', ', array_keys($abteilungIds)) . "\n";
 
 $vorhanden = (int) $pdo->query('SELECT COUNT(*) FROM benutzer')->fetchColumn();
 if ($vorhanden > 0) {
-    echo "Benutzer existieren bereits ($vorhanden), nichts geändert.\n";
+    if ($passwortSetzen) {
+        $startpasswort = (string) (konfig()['app']['startpasswort'] ?? '');
+        if ($startpasswort === '') {
+            fwrite(STDERR, "In config.local.php fehlt 'startpasswort' unter 'app'.\n");
+            exit(1);
+        }
+        $pdo->prepare('UPDATE benutzer SET passwort_hash = ?')->execute([password_hash($startpasswort, PASSWORD_DEFAULT)]);
+        echo "Alle $vorhanden Konten haben jetzt das Startpasswort aus config.local.php.\n";
+    } else {
+        echo "Benutzer existieren bereits ($vorhanden), nichts geändert.\n";
+    }
 } else {
     // Passwort steht nur in config.local.php, damit es nicht ins Repository gelangt
     $startpasswort = (string) (konfig()['app']['startpasswort'] ?? '');

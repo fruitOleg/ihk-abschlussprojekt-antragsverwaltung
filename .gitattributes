@@ -1,0 +1,2 @@
+# Shell-Skripte laufen im Codespace unter Linux und brauchen Unix-Zeilenenden
+*.sh text eol=lf

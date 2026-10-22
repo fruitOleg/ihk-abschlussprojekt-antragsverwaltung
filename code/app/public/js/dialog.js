@@ -146,6 +146,16 @@
     }
   });
 
+  // Anmeldeseite: Klick auf einen Testzugang trägt den Benutzernamen ein
+  document.addEventListener('click', ereignis => {
+    const knopf = ereignis.target.closest('[data-login]');
+    const feldLogin = document.getElementById('login');
+    if (!knopf || !feldLogin) return;
+    feldLogin.value = knopf.dataset.login;
+    const feldPasswort = document.getElementById('passwort');
+    if (feldPasswort) feldPasswort.focus();
+  });
+
   // Benachrichtigungen, die der Server als Pop-up mitgibt, nacheinander zeigen
   const sofort = [...document.querySelectorAll('dialog[data-sofort]')];
   const naechstes = () => {
