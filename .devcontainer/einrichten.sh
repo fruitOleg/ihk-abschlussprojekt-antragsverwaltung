@@ -10,7 +10,8 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq mariadb-server > /dev
 
 echo "== PHP-Erweiterung pdo_mysql"
 if ! php -m | grep -qi '^pdo_mysql$'; then
-    sudo docker-php-ext-install pdo_mysql > /dev/null
+    # sudo verwirft Umgebungsvariablen; ohne PHP_INI_DIR landet die ini-Datei im falschen Ordner
+    sudo env "PHP_INI_DIR=${PHP_INI_DIR:-/usr/local/etc/php}" docker-php-ext-install pdo_mysql > /dev/null
 fi
 php -v | head -n 1
 
