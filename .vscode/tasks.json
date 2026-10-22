@@ -16,6 +16,19 @@
             "presentation": { "reveal": "silent", "panel": "dedicated", "clear": true }
         },
         {
+            "label": "Antragsverwaltung: online stellen",
+            "detail": "Anwendung über ngrok öffentlich machen: https://curse-mulberry-rule.ngrok-free.dev/ (Strg+C beendet)",
+            "type": "process",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy", "Bypass",
+                "-File", "${workspaceFolder}\\code\\app\\online.ps1"
+            ],
+            "problemMatcher": [],
+            "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
+        },
+        {
             "label": "Antragsverwaltung: Beispieldaten zurücksetzen",
             "detail": "Alle Tabellen leeren und die 12 Beispielanträge neu anlegen",
             "type": "process",

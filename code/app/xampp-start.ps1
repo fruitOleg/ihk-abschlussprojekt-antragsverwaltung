@@ -48,6 +48,8 @@ if (-not $php) {
     Write-Host 'Hinweis: es wird das veraltete PHP von XAMPP benutzt (besser: winget install PHP.PHP.8.4)' -ForegroundColor Yellow
 }
 $optionen += @('-d', 'upload_max_filesize=5M', '-d', 'post_max_size=6M', '-d', 'expose_php=0')
+# Die Anwendung kann öffentlich erreichbar sein (online.ps1): keine Fehlerdetails an Besucher, nur ins Protokoll
+$optionen += @('-d', 'display_errors=0', '-d', 'log_errors=1', '-d', "error_log=$env:TEMP\antragsverwaltung-php.log")
 Schritt ('PHP ' + ((& $php @optionen -r 'echo PHP_VERSION;')))
 
 # ---------- 1. MySQL ----------

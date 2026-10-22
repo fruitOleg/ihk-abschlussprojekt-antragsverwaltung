@@ -5,10 +5,10 @@ IHK-Abschlussprojekt: Webanwendung für den Genehmigungsweg von Anträgen zur Un
 
 ## Anwendung
 
-**https://scaling-parakeet-vj4g5747vgph6qgv-8000.app.github.dev/**
+**https://curse-mulberry-rule.ngrok-free.dev/**
 
-Die Anwendung läuft in GitHub Codespaces und ist erreichbar, solange der Codespace gestartet ist
-(Start durch die Projektgruppe unter https://github.com/codespaces).
+Die Anwendung läuft auf dem Rechner der Projektgruppe (XAMPP) und ist erreichbar, solange sie dort
+online gestellt ist. Beim ersten Aufruf zeigt ngrok eine Hinweisseite – dort auf **Visit Site** klicken.
 
 ## Testzugänge
 
