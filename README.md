@@ -3,11 +3,12 @@
 IHK-Abschlussprojekt: Webanwendung für den Genehmigungsweg von Anträgen zur Unterrichtsorganisation
 (Lehrkraft → Abteilungsleitung → stellv. Schulleitung → Schulleitung → Sekretariat).
 
-## Anwendung starten
+## Anwendung
 
-Die Anwendung läuft in GitHub Codespaces: oben **Code** → **Codespaces** → **Create codespace on main**
-(beim nächsten Mal denselben Codespace unter https://github.com/codespaces starten).
-Die Adresse der Anwendung steht danach im Terminal: `Antragsverwaltung: https://…-8000.app.github.dev/`.
+**https://scaling-parakeet-vj4g5747vgph6qgv-8000.app.github.dev/**
+
+Die Anwendung läuft in GitHub Codespaces und ist erreichbar, solange der Codespace gestartet ist
+(Start durch die Projektgruppe unter https://github.com/codespaces).
 
 ## Testzugänge
 
