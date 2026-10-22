@@ -1,11 +1,19 @@
 {
     // GitHub Codespaces: startet die Antragsverwaltung samt Datenbank in der Cloud.
+    // Offizielles PHP-8.4-Image (bekommt laufend Sicherheitskorrekturen), dazu MariaDB.
     // Beim ersten Start richtet einrichten.sh alles ein, danach startet start.sh nur noch die Dienste.
     "name": "Antragsverwaltung",
-    "image": "mcr.microsoft.com/devcontainers/base:bookworm",
+    "image": "php:8.4-cli-bookworm",
     "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "username": "vscode",
+            "installZsh": false,
+            "installOhMyZsh": false
+        },
+        "ghcr.io/devcontainers/features/git:1": {},
         "ghcr.io/devcontainers/features/github-cli:1": {}
     },
+    "remoteUser": "vscode",
     "postCreateCommand": "bash .devcontainer/einrichten.sh",
     "postStartCommand": "bash .devcontainer/start.sh",
     "forwardPorts": [8000],

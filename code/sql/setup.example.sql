@@ -4,8 +4,8 @@
 --   XAMPP:  C:\xampp\mysql\bin\mysql -u root < setup.example.sql
 --   oder in phpMyAdmin unter "SQL" einfügen
 --
--- Vorlage ohne echtes Passwort: HIER_PASSWORT_EINSETZEN überall durch dasselbe
--- Passwort ersetzen wie in config.local.php. Die eigene Fassung heißt
+-- Vorlage ohne echtes Passwort: den Platzhalter in den Zeilen CREATE USER und ALTER USER
+-- durch dasselbe Passwort ersetzen wie in config.local.php. Die eigene Fassung heißt
 -- sql/setup.local.sql und bleibt wie config.local.php außerhalb des Repositorys.
 --
 -- Danach: code/app/start.bat install (legt Tabellen, Schutz-Trigger und Benutzer an).

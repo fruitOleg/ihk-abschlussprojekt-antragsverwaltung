@@ -4,7 +4,7 @@
     "tasks": [
         {
             "label": "Antragsverwaltung: XAMPP starten",
-            "detail": "MySQL und Apache starten, beim ersten Mal Datenbank einrichten",
+            "detail": "MySQL von XAMPP und die Anwendung (aktuelles PHP) starten, beim ersten Mal Datenbank einrichten",
             "type": "process",
             "command": "powershell",
             "args": [
@@ -19,8 +19,8 @@
             "label": "Antragsverwaltung: Beispieldaten zurücksetzen",
             "detail": "Alle Tabellen leeren und die 12 Beispielanträge neu anlegen",
             "type": "process",
-            "command": "C:\\xampp\\php\\php.exe",
-            "args": ["install.php", "neu", "demo"],
+            "command": "cmd",
+            "args": ["/c", "start.bat", "install", "neu", "demo", "passwort"],
             "options": { "cwd": "${workspaceFolder}\\code\\app" },
             "problemMatcher": [],
             "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }

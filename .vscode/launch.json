@@ -3,17 +3,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Antragsverwaltung starten (XAMPP)",
+            "name": "Antragsverwaltung starten",
             "type": "editor-browser",
             "request": "launch",
-            "url": "http://localhost/antragsverwaltung/",
+            "url": "http://127.0.0.1:8000/",
             "preLaunchTask": "Antragsverwaltung: XAMPP starten"
         },
         {
-            "name": "Antragsverwaltung in Firefox (XAMPP)",
+            "name": "Antragsverwaltung in Firefox",
             "type": "firefox",
             "request": "launch",
-            "url": "http://localhost/antragsverwaltung/",
+            "url": "http://127.0.0.1:8000/",
             "webRoot": "${workspaceFolder}/code/app/public",
             "preLaunchTask": "Antragsverwaltung: XAMPP starten"
         },

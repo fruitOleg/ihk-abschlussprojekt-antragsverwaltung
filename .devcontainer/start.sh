@@ -4,8 +4,12 @@ cd "$(dirname "$0")/.."
 
 sudo service mariadb start > /dev/null
 
+# öffentlich erreichbar: keine Fehlerdetails und keine PHP-Version an Besucher ausgeben
 if ! pgrep -f "php .*-S 0.0.0.0:8000" > /dev/null; then
-    setsid nohup php -d upload_max_filesize=5M -d post_max_size=6M -S 0.0.0.0:8000 -t code/app/public \
+    setsid nohup php \
+        -d display_errors=0 -d log_errors=1 -d expose_php=0 \
+        -d upload_max_filesize=5M -d post_max_size=6M \
+        -S 0.0.0.0:8000 -t code/app/public \
         > /tmp/antragsverwaltung.log 2>&1 &
 fi
 

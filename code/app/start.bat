@@ -10,14 +10,13 @@ rem                             Datenbank, Benutzer, Tabellen und Beispieldaten
 setlocal enabledelayedexpansion
 cd /d "%~dp0"
 
-rem Zuerst XAMPP, sonst ein PHP aus dem Suchpfad, das pdo_mysql mitbringt
+rem Zuerst ein aktuelles PHP aus dem Suchpfad (z. B. winget install PHP.PHP.8.4),
+rem nur ersatzweise das ältere PHP von XAMPP (8.2.12, ohne neuere Sicherheitskorrekturen)
 set "PHP="
-if exist "C:\xampp\php\php.exe" set "PHP=C:\xampp\php\php.exe"
-if not defined PHP (
-  for /f "delims=" %%p in ('where php 2^>nul') do (
-    if not defined PHP if exist "%%~dppext\php_pdo_mysql.dll" set "PHP=%%p"
-  )
+for /f "delims=" %%p in ('where php 2^>nul') do (
+  if not defined PHP if exist "%%~dppext\php_pdo_mysql.dll" set "PHP=%%p"
 )
+if not defined PHP if exist "C:\xampp\php\php.exe" set "PHP=C:\xampp\php\php.exe"
 if not defined PHP (
   echo PHP mit der Erweiterung pdo_mysql wurde nicht gefunden.
   exit /b 1
@@ -30,7 +29,7 @@ if errorlevel 1 (
   for %%p in ("%PHP%") do set "EXT=%%~dppext"
   set OPTIONEN=-d "extension_dir=!EXT!" -d extension=pdo_mysql -d extension=fileinfo -d extension=mbstring
 )
-set "OPTIONEN=%OPTIONEN% -d upload_max_filesize=5M -d post_max_size=6M"
+set "OPTIONEN=%OPTIONEN% -d upload_max_filesize=5M -d post_max_size=6M -d expose_php=0"
 
 if /i "%~1"=="einrichten" (
   "%PHP%" %OPTIONEN% einrichten.php || exit /b 1

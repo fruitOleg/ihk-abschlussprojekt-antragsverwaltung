@@ -22,7 +22,7 @@ set_exception_handler(function (Throwable $fehler): void {
 
     $text = match (true) {
         $fehler instanceof PDOException => 'Keine Verbindung zur Datenbank. Läuft MySQL, und stimmt das Passwort '
-            . 'in code/config.local.php mit dem in der Datenbank überein? Siehe docs/Installation_XAMPP.md.',
+            . 'in code/config.local.php mit dem in der Datenbank überein?',
         $fehler instanceof KonfigFehler => $fehler->getMessage(),
         default => 'Es ist ein unerwarteter Fehler aufgetreten. Details stehen im Server-Log.',
     };
@@ -49,7 +49,7 @@ function konfig(): array
         $datei = PROJEKT . '/config.local.php';
         if (!is_file($datei)) {
             throw new KonfigFehler('code/config.local.php fehlt. Mit "start.bat einrichten" anlegen oder '
-                . 'code/config.example.php kopieren und ausfüllen (siehe docs/Installation_XAMPP.md).');
+                . 'code/config.example.php kopieren und ausfüllen.');
         }
         $konfig = require $datei;
         if (str_contains((string) ($konfig['db']['pass'] ?? ''), 'HIER_')) {

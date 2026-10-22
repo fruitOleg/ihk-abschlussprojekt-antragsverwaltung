@@ -1,12 +1,18 @@
 #!/usr/bin/env bash
-# Ersteinrichtung im Codespace: PHP, MariaDB, Datenbank, Benutzer und Beispieldaten.
+# Ersteinrichtung im Codespace: MariaDB, PHP-Erweiterung, Datenbank, Benutzer und Beispieldaten.
 # Läuft einmal beim Anlegen des Codespaces (postCreateCommand).
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-echo "== Pakete installieren (PHP 8.2, MariaDB)"
+echo "== MariaDB installieren"
 sudo apt-get update -qq
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq php-cli php-mysql php-mbstring mariadb-server > /dev/null
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq mariadb-server > /dev/null
+
+echo "== PHP-Erweiterung pdo_mysql"
+if ! php -m | grep -qi '^pdo_mysql$'; then
+    sudo docker-php-ext-install pdo_mysql > /dev/null
+fi
+php -v | head -n 1
 
 echo "== Datenbankserver starten"
 sudo service mariadb start
